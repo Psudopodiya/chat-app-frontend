@@ -5,13 +5,14 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageCircle, Send } from "lucide-react";
 import { createWebSocket } from "@/service/chatApi";
 import { useAuth } from "@/context/AuthContext";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface Message {
   message: string;
   user: string;
   profile_image_url: string;
 }
+
 interface ChatWindowProps {
   selectedRoom: string;
 }
@@ -36,7 +37,6 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
 
       wsRef.current.onmessage = (event) => {
         const data = JSON.parse(event.data);
-        console.log("Data", data);
         setMessages((prev) => [
           ...prev,
           {
@@ -83,10 +83,10 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
 
   if (!selectedRoom) {
     return (
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center bg-[#f2e8cf]">
         <div className="text-center">
-          <MessageCircle className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-500">
+          <MessageCircle className="h-16 w-16 text-[#2f3e46] mx-auto mb-4" />
+          <h2 className="text-xl font-semibold text-[#2f3e46]">
             Select a chat to start messaging
           </h2>
         </div>
@@ -94,12 +94,12 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
     );
   }
 
-  console.log("Messages", messages);
-
   return (
-    <div className="flex-1 flex flex-col">
-      <div className="p-4 border-b">
-        <h2 className="text-xl font-semibold">Room: {selectedRoom}</h2>
+    <div className="flex-1 flex flex-col bg-[#f2e8cf]">
+      <div className="p-4 border-b border-[#2f3e46]">
+        <h2 className="text-xl font-semibold text-[#2f3e46]">
+          Room: {selectedRoom}
+        </h2>
       </div>
       <ScrollArea className="flex-1 p-4" ref={scrollRef}>
         {messages.map((message, index) => {
@@ -112,39 +112,63 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
               }`}
             >
               {!isCurrentUser && (
-                <Avatar className="rounded-full border h-10 w-10">
+                <Avatar className="h-10 w-10 border-2 border-[#2f3e46]">
                   <AvatarImage
                     src={message.profile_image_url}
-                    alt={`${user}'s avatar`}
+                    alt={`${message.user}'s avatar`}
                     className="object-cover"
                   />
-                  <AvatarFallback>
+                  <AvatarFallback className="bg-[#d9c8a0] text-[#2f3e46] font-semibold">
                     {message.user.slice(0, 2).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
               )}
-              <div
-                className={`max-w-[70%] p-3 rounded-2xl ${
-                  isCurrentUser
-                    ? "bg-blue-500 text-white rounded-br-none"
-                    : "bg-gray-200 text-gray-800 rounded-bl-none"
-                } shadow-sm border border-gray-200`}
-              >
-                <p className="text-sm">{message.message}</p>
-              </div>
+              {!isCurrentUser ? (
+                <div
+                  className={`max-w-[70%] p-1 rounded-2xl ${
+                    isCurrentUser
+                      ? "bg-[#2f3e46] text-[#f2e8cf] rounded-br-none"
+                      : "bg-[#d9c8a0] text-[#2f3e46] rounded-bl-none"
+                  } shadow-md border-2 border-[#2f3e46] ml-2 mr-2`}
+                >
+                  <p className="text-xs mb-1 text-gray-500 text-center">
+                    {message.user}
+                  </p>
+                  <p className="text-sm px-2 py-1 rounded-xl bg-[#b09c6c]">
+                    {message.message}
+                  </p>
+                </div>
+              ) : (
+                <div
+                  className={`max-w-[70%] p-1 rounded-2xl ${
+                    isCurrentUser
+                      ? "bg-[#2f3e46] text-[#f2e8cf] rounded-br-none"
+                      : "bg-[#d9c8a0] text-[#2f3e46] rounded-bl-none"
+                  } shadow-md border-2 border-[#2f3e46] ml-2 mr-2`}
+                >
+                  <p className="text-sm">{message.message}</p>
+                </div>
+              )}
             </div>
           );
         })}
       </ScrollArea>
-      <form onSubmit={handleSendMessage} className="p-4 border-t flex">
+      <form
+        onSubmit={handleSendMessage}
+        className="p-4 border-t border-[#2f3e46] flex"
+      >
         <Input
           type="text"
           placeholder="Type a message"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          className="flex-1 mr-2"
+          className="flex-1 mr-2 bg-[#f2e8cf] border-2 border-[#2f3e46] text-[#2f3e46] placeholder-[#2f3e46] focus:ring-[#2f3e46] focus:border-[#2f3e46]"
         />
-        <Button type="submit">
+        <Button
+          type="submit"
+          className="bg-[#2f3e46] text-[#f2e8cf] hover:bg-[#3a4f5a] transition-colors"
+          disabled={!newMessage.trim()}
+        >
           <Send className="h-5 w-5" />
         </Button>
       </form>

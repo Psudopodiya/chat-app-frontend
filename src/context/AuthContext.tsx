@@ -23,12 +23,12 @@ interface AuthContextType {
   login: (credentials: {
     username: string;
     password: string;
-  }) => Promise<string | null>;
+  }) => Promise<{ success: boolean; error: string | null }>;
   register: (userData: {
     username: string;
     password: string;
     email: string;
-  }) => Promise<string | null>;
+  }) => Promise<{ success: boolean; error: string | null }>;
   logout: () => void;
 }
 
@@ -82,13 +82,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setIsAuthenticated(true);
       const userData = await getUser();
       setUser(userData);
-      navigate("/");
-      return null;
+      return { success: true, error: null };
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        return error.response.data.detail || "An error occurred during login";
+        const errorMessages = Object.values(error.response.data).flat();
+        return {
+          success: false,
+          error:
+            (errorMessages[0] as string) || "An error occurred during login",
+        };
       } else {
-        return "An unexpected error occurred";
+        return {
+          success: false,
+          error: "An unexpected error occurred",
+        };
       }
     }
   };
@@ -100,15 +107,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }) => {
     try {
       await registerUser(userData);
-      navigate("/login");
-      return null;
+      return { success: true, error: null };
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        return (
-          error.response.data.detail || "An error occurred during registration"
-        );
+        const errorMessages = Object.values(error.response.data).flat();
+        return {
+          success: false,
+          error:
+            (errorMessages[0] as string) ||
+            "An error occurred during registration",
+        };
       } else {
-        return "An unexpected error occurred";
+        return {
+          success: false,
+          error: "An unexpected error occurred",
+        };
       }
     }
   };

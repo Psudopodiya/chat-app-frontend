@@ -22,7 +22,6 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const wsRef = useRef<WebSocket | null>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (selectedRoom && user) {
@@ -33,18 +32,24 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
 
       wsRef.current.onopen = () => {
         console.log("WebSocket connection established");
+        setMessages([]);
       };
 
       wsRef.current.onmessage = (event) => {
         const data = JSON.parse(event.data);
-        setMessages((prev) => [
-          ...prev,
-          {
-            message: data.message,
-            user: data.username,
-            profile_image_url: data.profile_image_url,
-          },
-        ]);
+        console.log("Received message:", data);
+        if (data.type === "chat_history") {
+          setMessages(data.messages);
+        } else {
+          setMessages((prev) => [
+            ...prev,
+            {
+              message: data.message,
+              user: data.username,
+              profile_image_url: data.profile_image_url,
+            },
+          ]);
+        }
       };
 
       wsRef.current.onerror = (error) => {
@@ -62,12 +67,6 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
       };
     }
   }, [selectedRoom, user]);
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages]);
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,13 +94,13 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
   }
 
   return (
-    <div className="flex-1 flex flex-col bg-[#f2e8cf]">
+    <div className="flex-1 flex flex-col bg-[#f2e8cf] max-h-full overflow-hidden">
       <div className="p-4 border-b border-[#2f3e46]">
         <h2 className="text-xl font-semibold text-[#2f3e46]">
           Room: {selectedRoom}
         </h2>
       </div>
-      <ScrollArea className="flex-1 p-4" ref={scrollRef}>
+      <ScrollArea className="flex-1 p-4">
         {messages.map((message, index) => {
           const isCurrentUser = message.user === user?.username;
           return (

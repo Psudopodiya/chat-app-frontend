@@ -22,9 +22,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
+    <div className="flex flex-col h-screen">
       <Navbar />
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden h-screen">
         <ChatRoomList
           selectedRoom={selectedRoom}
           setSelectedRoom={setSelectedRoom}

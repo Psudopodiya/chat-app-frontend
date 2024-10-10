@@ -6,7 +6,7 @@ export default function PrivateRoute({
 }: {
   children: React.ReactNode;
 }) {
-  const { isAuthenticated} = useAuth();
+  const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;

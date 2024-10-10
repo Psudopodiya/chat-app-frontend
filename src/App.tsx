@@ -6,8 +6,8 @@ import PrivateRoute from "@/router/PrivateRoute";
 
 export default function App() {
   return (
-      <Router>
-        <AuthProvider>
+    <Router>
+      <AuthProvider>
         <Routes>
           <Route path="/login" element={<LoginRegister />} />
           <Route
@@ -19,7 +19,7 @@ export default function App() {
             }
           />
         </Routes>
-        </AuthProvider>
-      </Router>
+      </AuthProvider>
+    </Router>
   );
 }

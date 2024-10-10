@@ -23,7 +23,7 @@ export default function CreateRoomButton({
 }: CreateRoomButtonProps) {
   const { toast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [roomName, setRoomName] = useState("");
+  const [roomInfo, setRoomInfo] = useState({ title: "" });
   const [isCreating, setIsCreating] = useState(false);
 
   const handleCreateRoom = async (e: React.FormEvent) => {
@@ -31,13 +31,9 @@ export default function CreateRoomButton({
     setIsCreating(true);
 
     try {
-      setRoomName(roomName.replace(" ", "_"));
-      const response = await createRoom({
-        createRoomInfo: { title: roomName },
-      });
+      const response = await createRoom(roomInfo);
       onRoomCreated(response);
       setIsModalOpen(false);
-      setRoomName("");
       toast({
         title: "Success",
         description: "Room created successfully!",
@@ -74,17 +70,19 @@ export default function CreateRoomButton({
           <form onSubmit={handleCreateRoom}>
             <div className="grid gap-4 py-4">
               <Input
-                id="roomName"
+                id="title"
+                name="title"
+                type="text"
                 placeholder="Enter room name"
-                value={roomName}
-                onChange={(e) => setRoomName(e.target.value)}
+                value={roomInfo.title}
+                onChange={(e) => setRoomInfo({ title: e.target.value })}
                 className="bg-white border-[#2f3e46] text-[#2f3e46]"
               />
             </div>
             <DialogFooter>
               <Button
                 type="submit"
-                disabled={!roomName || isCreating}
+                disabled={!roomInfo.title || isCreating}
                 className="bg-[#2f3e46] text-[#f2e8cf] hover:bg-[#354f52] transition-colors"
               >
                 {isCreating ? "Creating..." : "Create Room"}

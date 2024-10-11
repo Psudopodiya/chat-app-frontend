@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Replace with your backend URL
-const BASE_URL = "http://127.0.0.1:8000/api/";
+const BASE_URL = import.meta.env.VITE_BASE_URL
 
 // API call for login
 export const loginUser = async (credentials: {

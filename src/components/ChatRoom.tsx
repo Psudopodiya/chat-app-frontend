@@ -1,5 +1,6 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageSquare, Users } from "lucide-react";
+import CreateRoom from "./CreateRoom";
 
 interface ChatRoom {
   id: string;
@@ -24,6 +25,7 @@ export default function ChatRoom({
           <Users size={24} className="mr-2" />
           Chat Rooms
         </h2>
+        {/* <CreateRoom/> */}
       </div>
       <ScrollArea className="h-[calc(100vh-73px)]">
         {chatRooms.map((room) => (

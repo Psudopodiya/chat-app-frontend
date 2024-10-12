@@ -1,16 +1,12 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageSquare, Users } from "lucide-react";
 import CreateRoom from "./CreateRoom";
-
-interface ChatRoom {
-  id: string;
-  title: string;
-}
+import { Room } from "@/types/types";
 
 interface ChatRoomProps {
-  selectedRoom: string;
-  setSelectedRoom: (roomId: string) => void;
-  chatRooms: ChatRoom[];
+  selectedRoom: number;
+  setSelectedRoom: (roomId: number) => void;
+  chatRooms: Room[];
 }
 
 export default function ChatRoom({
@@ -25,7 +21,7 @@ export default function ChatRoom({
           <Users size={24} className="mr-2" />
           Chat Rooms
         </h2>
-        {/* <CreateRoom/> */}
+        <CreateRoom />
       </div>
       <ScrollArea className="h-[calc(100vh-73px)]">
         {chatRooms.map((room) => (

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { CreateRoom } from "@/types/types";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -7,16 +8,16 @@ export const getChatRooms = async () => {
   return response.data;
 };
 
-export const createWebSocket = (roomName: string, token: string) => {
+export const createWebSocket = (roomID: number, token: string) => {
   const realProtocol = "chat-protocol";
-  return new WebSocket(`ws://127.0.0.1:8000/ws/chat/${roomName}/`, [
+  return new WebSocket(`ws://127.0.0.1:8001/ws/chat/${roomID}/`, [
     realProtocol,
     token,
   ]);
 };
 
 // Work under Progress
-export const createRoom = async (createRoomInfo: any) => {
+export const createRoom = async (createRoomInfo: CreateRoom) => {
   console.log(createRoomInfo);
   const accessToken = localStorage.getItem("access_token");
   const response = await axios.post(
@@ -33,5 +34,5 @@ export const createRoom = async (createRoomInfo: any) => {
 
 // New function to create WebSocket for room updates
 export const createRoomsWebSocket = () => {
-  return new WebSocket(`ws://127.0.0.1:8000/ws/rooms/`);
+  return new WebSocket(`ws://127.0.0.1:8001/ws/rooms/`);
 };

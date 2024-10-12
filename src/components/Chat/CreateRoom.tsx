@@ -14,13 +14,7 @@ import { PlusCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { createRoom } from "@/service/chatApi";
 
-interface CreateRoomButtonProps {
-  onRoomCreated: (newRoom: { id: string; title: string }) => void;
-}
-
-export default function CreateRoomButton({
-  onRoomCreated,
-}: CreateRoomButtonProps) {
+export default function CreateRoom() {
   const { toast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [roomInfo, setRoomInfo] = useState({ title: "" });
@@ -31,8 +25,7 @@ export default function CreateRoomButton({
     setIsCreating(true);
 
     try {
-      const response = await createRoom(roomInfo);
-      onRoomCreated(response);
+      await createRoom(roomInfo);
       setIsModalOpen(false);
       toast({
         title: "Success",

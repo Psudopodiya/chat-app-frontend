@@ -6,15 +6,10 @@ import { MessageCircle, Send } from "lucide-react";
 import { createWebSocket } from "@/service/chatApi";
 import { useAuth } from "@/context/AuthContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-interface Message {
-  message: string;
-  user: string;
-  profile_image_url: string;
-}
+import { Message } from "@/types/types";
 
 interface ChatWindowProps {
-  selectedRoom: string;
+  selectedRoom: number;
 }
 
 export default function ChatWindow({ selectedRoom }: ChatWindowProps) {

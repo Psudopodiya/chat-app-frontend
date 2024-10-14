@@ -1,11 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Button,
+  Input,
+  ScrollArea,
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui";
 import { MessageCircle, Send } from "lucide-react";
 import { createWebSocket } from "@/service/chatApi";
 import { useAuth } from "@/context/AuthContext";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Message } from "@/types/types";
 
 interface ChatWindowProps {
@@ -79,8 +83,8 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
     return (
       <div className="flex-1 flex items-center justify-center bg-[#f2e8cf]">
         <div className="text-center">
-          <MessageCircle className="h-16 w-16 text-[#2f3e46] mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-[#2f3e46]">
+          <MessageCircle className="h-16 w-16 text-[#1c3f39] mx-auto mb-4" />
+          <h2 className="text-xl font-semibold text-[#1c3f39]">
             Select a chat to start messaging
           </h2>
         </div>
@@ -90,8 +94,8 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
 
   return (
     <div className="flex-1 flex flex-col bg-[#f2e8cf] max-h-full overflow-hidden">
-      <div className="p-4 border-b border-[#2f3e46]">
-        <h2 className="text-xl font-semibold text-[#2f3e46]">
+      <div className="p-4 border-b border-[#1c3f39]">
+        <h2 className="text-xl font-semibold text-[#1c3f39]">
           Room: {selectedRoom}
         </h2>
       </div>
@@ -105,28 +109,33 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
                 isCurrentUser ? "flex-row-reverse" : "flex-row"
               }`}
             >
+              {/* Avatar for for not current user */}
+
               {!isCurrentUser && (
-                <Avatar className="h-10 w-10 border-2 border-[#2f3e46]">
+                <Avatar className="h-10 w-10 border-2 border-[#1c3f39]">
                   <AvatarImage
                     src={message.profile_image_url}
                     alt={`${message.user}'s avatar`}
                     className="object-cover"
                   />
-                  <AvatarFallback className="bg-[#d9c8a0] text-[#2f3e46] font-semibold">
+                  <AvatarFallback className="bg-[#d9c8a0] text-[#1c3f39] font-semibold">
                     {message.user.slice(0, 2).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
               )}
+
+              {/* The messages */}
+
               {!isCurrentUser ? (
                 <div
-                  className={`max-w-[70%] p-1 rounded-2xl ${
+                  className={`max-w-[70%] px-4 py-2 rounded-2xl ${
                     isCurrentUser
-                      ? "bg-[#2f3e46] text-[#f2e8cf] rounded-br-none"
-                      : "bg-[#d9c8a0] text-[#2f3e46] rounded-bl-none"
-                  } shadow-md border-2 border-[#2f3e46] ml-2 mr-2`}
+                      ? "bg-[#1c3f39] text-[#f2e8cf] rounded-br-none"
+                      : "bg-[#d9c8a0] text-[#1c3f39] rounded-bl-none"
+                  } shadow-md border-2 border-[#1c3f39] ml-2 mr-2`}
                 >
-                  <p className="text-xs mb-1 text-gray-500 text-center">
-                    {message.user}
+                  <p className="text-sm mb-1 text-gray-500 text-center">
+                    {message.user.toUpperCase()}
                   </p>
                   <p className="text-sm px-2 py-1 rounded-xl bg-[#b09c6c]">
                     {message.message}
@@ -134,11 +143,11 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
                 </div>
               ) : (
                 <div
-                  className={`max-w-[70%] p-1 rounded-2xl ${
+                  className={`max-w-[70%] px-4 py-2 rounded-2xl ${
                     isCurrentUser
-                      ? "bg-[#2f3e46] text-[#f2e8cf] rounded-br-none"
-                      : "bg-[#d9c8a0] text-[#2f3e46] rounded-bl-none"
-                  } shadow-md border-2 border-[#2f3e46] ml-2 mr-2`}
+                      ? "bg-[#1c3f39] text-[#f2e8cf] rounded-br-none"
+                      : "bg-[#d9c8a0] text-[#1c3f39] rounded-bl-none"
+                  } shadow-md border-2 border-[#1c3f39] ml-2 mr-2`}
                 >
                   <p className="text-sm">{message.message}</p>
                 </div>
@@ -149,18 +158,18 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
       </ScrollArea>
       <form
         onSubmit={handleSendMessage}
-        className="p-4 border-t border-[#2f3e46] flex"
+        className="p-4 border-t border-[#1c3f39] flex"
       >
         <Input
           type="text"
           placeholder="Type a message"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          className="flex-1 mr-2 bg-[#f2e8cf] border-2 border-[#2f3e46] text-[#2f3e46] placeholder-[#2f3e46] focus:ring-[#2f3e46] focus:border-[#2f3e46]"
+          className="flex-1 mr-2 bg-[#f2e8cf] border-2 border-[#1c3f39] text-[#1c3f39] placeholder-[#1c3f39] focus:ring-[#1c3f39] focus:border-[#1c3f39]"
         />
         <Button
           type="submit"
-          className="bg-[#2f3e46] text-[#f2e8cf] hover:bg-[#3a4f5a] transition-colors"
+          className="bg-[#1c3f39] text-[#f2e8cf] hover:bg-[#3a4f5a] transition-colors"
           disabled={!newMessage.trim()}
         >
           <Send className="h-5 w-5" />

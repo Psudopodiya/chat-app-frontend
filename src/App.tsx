@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "@/pages/Home";
-import LoginRegister from "@/pages/LoginRegister";
+import { Profile, Home, LoginRegister } from "./pages";
 import { AuthProvider } from "@/context/AuthContext";
+import MainLayout from "./layouts/MainLayout";
 import PrivateRoute from "@/router/PrivateRoute";
 
 export default function App() {
@@ -11,10 +11,22 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<LoginRegister />} />
           <Route
-            path="/"
+            path=""
             element={
               <PrivateRoute>
-                <Home />
+                <MainLayout>
+                  <Home />
+                </MainLayout>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <MainLayout>
+                  <Profile />
+                </MainLayout>
               </PrivateRoute>
             }
           />

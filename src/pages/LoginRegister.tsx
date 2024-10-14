@@ -3,11 +3,11 @@ import RegisterView from "@/components/Auth/RegisterView";
 import WelcomeView from "@/components/Auth/WelcomeView";
 
 import { useState } from "react";
-const LoginRegister: React.FC = () => {
+export default function LoginRegister() {
   const [view, setView] = useState<"welcome" | "login" | "signup">("welcome");
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#2f3e46] p-4">
+    <div className="min-h-screen flex items-center justify-center bg-[#1c3f39] p-4 font-inconsolata">
       {view === "welcome" && (
         <WelcomeView
           onLoginClick={() => setView("login")}
@@ -28,6 +28,4 @@ const LoginRegister: React.FC = () => {
       )}
     </div>
   );
-};
-
-export default LoginRegister;
+}

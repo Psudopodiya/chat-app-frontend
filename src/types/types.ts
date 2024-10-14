@@ -13,6 +13,13 @@ export interface Message {
   profile_image_url: string;
 }
 
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  profile_image: string;
+  bio: string;
+}
 export interface CreateRoom {
   title: string;
 }

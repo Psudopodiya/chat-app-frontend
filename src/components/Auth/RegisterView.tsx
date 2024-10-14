@@ -58,10 +58,10 @@ const RegisterView: React.FC<RegisterProps> = ({
 
   return (
     <div className="bg-[#f2e8cf] p-8 rounded-3xl max-w-md w-full">
-      <button onClick={onBackClick} className="text-[#2f3e46] mb-6">
+      <button onClick={onBackClick} className="text-[#1c3f39] mb-6">
         <ArrowLeft size={24} />
       </button>
-      <h1 className="text-3xl font-bold text-[#2f3e46] mb-8">
+      <h1 className="text-3xl font-bold text-[#1c3f39] mb-8">
         Welcome,
         <br />
         Sign up!
@@ -70,7 +70,7 @@ const RegisterView: React.FC<RegisterProps> = ({
         <div className="relative">
           <label
             htmlFor="username"
-            className="text-sm text-[#2f3e46] mb-1 block"
+            className="text-sm text-[#1c3f39] mb-1 block"
           >
             Username
           </label>
@@ -81,12 +81,12 @@ const RegisterView: React.FC<RegisterProps> = ({
             value={inputData.username}
             onChange={handleInputChange}
             placeholder="example name"
-            className="w-full bg-[#f2e8cf] border-2 border-[#2f3e46] rounded-full py-3 px-4 text-[#2f3e46]"
+            className="w-full bg-[#f2e8cf] border-2 border-[#1c3f39] rounded-full py-3 px-4 text-[#1c3f39]"
           />
-          <User className="absolute right-4 top-10 text-[#2f3e46]" size={20} />
+          <User className="absolute right-4 top-10 text-[#1c3f39]" size={20} />
         </div>
         <div className="relative">
-          <label htmlFor="email" className="text-sm text-[#2f3e46] mb-1 block">
+          <label htmlFor="email" className="text-sm text-[#1c3f39] mb-1 block">
             Email
           </label>
           <input
@@ -96,13 +96,13 @@ const RegisterView: React.FC<RegisterProps> = ({
             value={inputData.email}
             type="email"
             placeholder="example@email.com"
-            className="w-full bg-[#f2e8cf] border-2 border-[#2f3e46] rounded-full py-3 px-4 text-[#2f3e46]"
+            className="w-full bg-[#f2e8cf] border-2 border-[#1c3f39] rounded-full py-3 px-4 text-[#1c3f39]"
           />
         </div>
         <div className="relative">
           <label
             htmlFor="password"
-            className="text-sm text-[#2f3e46] mb-1 block"
+            className="text-sm text-[#1c3f39] mb-1 block"
           >
             Password
           </label>
@@ -113,12 +113,12 @@ const RegisterView: React.FC<RegisterProps> = ({
             value={inputData.password}
             type={showPassword ? "text" : "password"}
             placeholder="••••••••••••••"
-            className="w-full bg-[#f2e8cf] border-2 border-[#2f3e46] rounded-full py-3 px-4 text-[#2f3e46]"
+            className="w-full bg-[#f2e8cf] border-2 border-[#1c3f39] rounded-full py-3 px-4 text-[#1c3f39]"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-4 top-10 text-[#2f3e46]"
+            className="absolute right-4 top-10 text-[#1c3f39]"
           >
             {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
           </button>
@@ -127,7 +127,7 @@ const RegisterView: React.FC<RegisterProps> = ({
         <div className="relative">
           <label
             htmlFor="confirmPassword"
-            className="text-sm text-[#2f3e46] mb-1 block"
+            className="text-sm text-[#1c3f39] mb-1 block"
           >
             Confirm Password
           </label>
@@ -138,19 +138,19 @@ const RegisterView: React.FC<RegisterProps> = ({
             value={inputData.confirmPassword}
             type="password"
             placeholder="••••••••••••••"
-            className="w-full bg-[#f2e8cf] border-2 border-[#2f3e46] rounded-full py-3 px-4 text-[#2f3e46]"
+            className="w-full bg-[#f2e8cf] border-2 border-[#1c3f39] rounded-full py-3 px-4 text-[#1c3f39]"
           />
         </div>
 
         {error && <p className="text-red-500 text-center">{error}</p>}
         <button
           type="submit"
-          className="w-full bg-[#2f3e46] text-[#f2e8cf] py-3 rounded-full mt-8 font-semibold"
+          className="w-full bg-[#1c3f39] text-[#f2e8cf] py-3 rounded-full mt-8 font-semibold"
         >
           Sign up
         </button>
       </form>
-      <p className="mt-6 text-center text-sm text-[#2f3e46]">
+      <p className="mt-6 text-center text-sm text-[#1c3f39]">
         Have an account?{" "}
         <button onClick={onLoginClick} className="underline font-semibold">
           Login

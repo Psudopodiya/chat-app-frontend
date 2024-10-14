@@ -9,13 +9,7 @@ import { loginUser, registerUser } from "@/service/authApi";
 import { getUser } from "@/service/userApi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-interface User {
-  id: number;
-  username: string;
-  email: string;
-  profile_image: string;
-}
+import { User } from "@/types/types";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -30,6 +24,7 @@ interface AuthContextType {
     email: string;
   }) => Promise<{ success: boolean; error: string | null }>;
   logout: () => void;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -73,6 +68,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     initAuth();
   }, []);
+
+  const handleUserUpdates = (updatedUser: User) => {
+    setUser(updatedUser); // Update the user state
+  };
 
   const login = async (credentials: { username: string; password: string }) => {
     try {
@@ -118,10 +117,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             "An error occurred during registration",
         };
       } else {
-        return {
-          success: false,
-          error: "An unexpected error occurred",
-        };
+        return { success: false, error: "An unexpected error occurred" };
       }
     }
   };
@@ -140,7 +136,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, login, logout, register, user }}
+      value={{ isAuthenticated, login, logout, register, user, setUser }} // Expose setUser
     >
       {children}
     </AuthContext.Provider>

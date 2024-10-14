@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { ChatRoom, ChatWindow } from "@/components/Chat";
 import { getChatRooms } from "@/service/chatApi";
-import Navbar from "@/components/Navbar";
 import { Room } from "@/types/types";
 
 export default function Home() {
@@ -81,8 +80,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen">
-      <Navbar />
+    <div className="flex flex-col h-screen font-inconsolata">
       <div className="flex flex-1 overflow-hidden h-screen">
         <ChatRoom
           selectedRoom={selectedRoom}

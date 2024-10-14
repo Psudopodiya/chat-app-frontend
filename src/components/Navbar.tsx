@@ -1,21 +1,23 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/ui";
 import { useAuth } from "@/context/AuthContext";
-import { LogOut, Menu, Settings, User, MessageCircle } from "lucide-react";
+import { LogOut, Menu, User, MessageCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const { user, logout } = useAuth();
 
   return (
-    <nav className="bg-[#2f3e46] text-[#f2e8cf] p-4 flex justify-between items-center shadow-md">
+    <nav className="bg-[#1c3f39] text-[#f2e8cf] p-4 flex justify-between items-center shadow-md font-inconsolata">
       <div className="flex items-center">
         <Button
           variant="ghost"
@@ -25,7 +27,9 @@ export default function Navbar() {
           <Menu className="h-6 w-6" />
         </Button>
         <MessageCircle className="h-6 w-6 mr-2 hidden md:block" />
-        <h1 className="text-xl font-bold">Retro Chat</h1>
+        <button className="text-xl font-bold" onClick={() => navigate("/")}>
+          Retro Chat
+        </button>
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -35,18 +39,18 @@ export default function Navbar() {
           >
             <Avatar>
               <AvatarImage
-                src={`http://127.0.0.1:8000${user?.profile_image}`}
+                src={`http://127.0.0.1:8001${user?.profile_image}`}
                 alt={user?.username}
                 className="object-cover"
               />
-              <AvatarFallback className="bg-[#d9c8a0] text-[#2f3e46]">
+              <AvatarFallback className="bg-[#d9c8a0] text-[#1c3f39]">
                 {user?.username?.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
-          className="w-56 bg-[#f2e8cf] text-[#2f3e46] border-2 border-[#2f3e46]"
+          className="w-56 bg-[#f2e8cf] text-[#1c3f39] border-2 border-[#1c3f39]"
           align="end"
           forceMount
         >
@@ -58,16 +62,15 @@ export default function Navbar() {
               <p className="text-xs leading-none opacity-70">{user?.email}</p>
             </div>
           </DropdownMenuLabel>
-          <DropdownMenuSeparator className="bg-[#2f3e46]" />
-          <DropdownMenuItem className="hover:bg-[#d9c8a0] cursor-pointer">
+          <DropdownMenuSeparator className="bg-[#1c3f39]" />
+          <DropdownMenuItem
+            className="hover:bg-[#d9c8a0] cursor-pointer"
+            onClick={() => navigate("/profile")} // Navigate to /profile on click
+          >
             <User className="mr-2 h-4 w-4" />
             <span>Profile</span>
           </DropdownMenuItem>
-          <DropdownMenuItem className="hover:bg-[#d9c8a0] cursor-pointer">
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator className="bg-[#2f3e46]" />
+          <DropdownMenuSeparator className="bg-[#1c3f39]" />
           <DropdownMenuItem
             onClick={logout}
             className="hover:bg-[#d9c8a0] cursor-pointer"

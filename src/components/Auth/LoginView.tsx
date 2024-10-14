@@ -46,10 +46,10 @@ const LoginView: React.FC<LoginProps> = ({ onBackClick, onSignupClick }) => {
 
   return (
     <div className="bg-[#f2e8cf] p-8 rounded-3xl max-w-md w-full relative">
-      <button onClick={onBackClick} className="text-[#2f3e46] mb-6">
+      <button onClick={onBackClick} className="text-[#1c3f39] mb-6">
         <ArrowLeft size={24} />
       </button>
-      <h1 className="text-3xl font-bold text-[#2f3e46] mb-8">
+      <h1 className="text-3xl font-bold text-[#1c3f39] mb-8">
         Welcome Back,
         <br />
         Log In!
@@ -58,7 +58,7 @@ const LoginView: React.FC<LoginProps> = ({ onBackClick, onSignupClick }) => {
         <div className="relative">
           <label
             htmlFor="username"
-            className="text-sm text-[#2f3e46] mb-1 block"
+            className="text-sm text-[#1c3f39] mb-1 block"
           >
             Enter Username
           </label>
@@ -69,13 +69,13 @@ const LoginView: React.FC<LoginProps> = ({ onBackClick, onSignupClick }) => {
             value={inputData.username}
             onChange={handleInputChange}
             placeholder="username"
-            className="w-full bg-[#f2e8cf] border-2 border-[#2f3e46] rounded-full py-3 px-4 text-[#2f3e46]"
+            className="w-full bg-[#f2e8cf] border-2 border-[#1c3f39] rounded-full py-3 px-4 text-[#1c3f39]"
           />
         </div>
         <div className="relative">
           <label
             htmlFor="password"
-            className="text-sm text-[#2f3e46] mb-1 block"
+            className="text-sm text-[#1c3f39] mb-1 block"
           >
             Password
           </label>
@@ -86,29 +86,29 @@ const LoginView: React.FC<LoginProps> = ({ onBackClick, onSignupClick }) => {
             value={inputData.password}
             onChange={handleInputChange}
             placeholder="••••••••••••••"
-            className="w-full bg-[#f2e8cf] border-2 border-[#2f3e46] rounded-full py-3 px-4 text-[#2f3e46]"
+            className="w-full bg-[#f2e8cf] border-2 border-[#1c3f39] rounded-full py-3 px-4 text-[#1c3f39]"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-4 top-10 text-[#2f3e46]"
+            className="absolute right-4 top-10 text-[#1c3f39]"
           >
             {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
           </button>
         </div>
         <div className="text-right">
-          <a href="#" className="text-sm text-[#2f3e46] underline">
+          <a href="#" className="text-sm text-[#1c3f39] underline">
             Forget password?
           </a>
         </div>
         <button
           type="submit"
-          className="w-full bg-[#2f3e46] text-[#f2e8cf] py-3 rounded-full font-semibold"
+          className="w-full bg-[#1c3f39] text-[#f2e8cf] py-3 rounded-full font-semibold"
         >
           Log In
         </button>
       </form>
-      <p className="mt-6 text-center text-sm text-[#2f3e46]">
+      <p className="mt-6 text-center text-sm text-[#1c3f39]">
         Don't have account?{" "}
         <button onClick={onSignupClick} className="underline font-semibold">
           Sign up

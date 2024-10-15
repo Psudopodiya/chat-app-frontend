@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { ChatRoom, ChatWindow } from "@/components/Chat";
+import { ChatWindow, RoomList } from "@/components/Chat";
 import { getChatRooms } from "@/service/chatApi";
 import { Room } from "@/types/types";
 
@@ -80,7 +80,7 @@ export default function Home() {
 
   return (
     <div className="flex h-full overflow-hidden bg-[#f2e8cf]">
-      <ChatRoom
+      <RoomList
         selectedRoom={selectedRoom}
         setSelectedRoom={setSelectedRoom}
         chatRooms={chatRooms}

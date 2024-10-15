@@ -1,4 +1,4 @@
-import { MessageCircle, Send } from "lucide-react";
+import { Clock, MessageCircle, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import {
@@ -108,7 +108,7 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
           {Object.entries(groupedMessages).map(([date, dateMessages]) => (
             <div key={date}>
               <div className="flex justify-center my-4">
-                <span className="bg-[#d9c8a0] text-[#1c3f39] px-3 py-1 rounded-full text-sm">
+                <span className="text-[#1c3f39] px-4 rounded-full text-sm tracking-wider border border-[#1c3f39]">
                   {date}
                 </span>
               </div>
@@ -117,7 +117,7 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
                 return (
                   <div
                     key={index}
-                    className={`mb-4 flex items-end ${
+                    className={`mb-4 gap-2 flex items-end ${
                       isCurrentUser ? "flex-row-reverse" : "flex-row"
                     }`}
                   >
@@ -128,38 +128,42 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
                           alt={`${message.user}'s avatar`}
                           className="object-cover"
                         />
-                        <AvatarFallback className="bg-[#d9c8a0] text-[#1c3f39] font-semibold">
+                        <AvatarFallback className="bg-[#c2b280] text-[#1c3f39] uppercase tracking-wider rounded-none">
                           {message.user.slice(0, 2).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
                     )}
 
                     <div
-                      className={`max-w-[70%] px-4 py-2 rounded-2xl ${
+                      className={`max-w-[70%] px-4 py-2 rounded-none ${
                         isCurrentUser
-                          ? "bg-[#1c3f39] text-[#f2e8cf] rounded-br-none"
-                          : "bg-[#d9c8a0] text-[#1c3f39] rounded-bl-none"
-                      } shadow-md border-2 border-[#1c3f39] ml-2 mr-2`}
+                          ? "bg-[#e8e0c5] text-[#1c3f39] ml-2"
+                          : "bg-[#c2b280] text-[#1c3f39] mr-2"
+                      } shadow-[4px_4px_0_0_#1c3f39] border-2 border-[#1c3f39]`}
                     >
-                      {!isCurrentUser && (
-                        <p className="text-sm mb-1 text-gray-500 text-center">
-                          {message.user.toUpperCase()}
-                        </p>
+                      {!isCurrentUser ? (
+                        <div className="flex items-center justify-between">
+                          <p className="text-sm mb-1 text-[#1c3f39] font-bold uppercase tracking-wider">
+                            {message.user.toUpperCase()}
+                          </p>
+
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-3 h-3 text-[#1c3f39]" />
+                            <p className="text-xs text-[#5d5a4c]">
+                              {formatTime(message.timestamp)}
+                            </p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-1 justify-end">
+                          <Clock className="w-3 h-3 text-[#1c3f39]" />
+                          <p className="text-xs text-[#5d5a4c]">
+                            {formatTime(message.timestamp)}
+                          </p>
+                        </div>
                       )}
-                      <p
-                        className={`text-sm ${
-                          isCurrentUser
-                            ? ""
-                            : "px-2 py-1 rounded-xl bg-[#b09c6c]"
-                        }`}
-                      >
-                        {message.message}
-                      </p>
-                      {!isCurrentUser && (
-                        <p className="text-xs text-gray-500 mt-1 text-right">
-                          {formatTime(message.timestamp)}
-                        </p>
-                      )}
+
+                      <p className="text-sm">{message.message}</p>
                     </div>
                   </div>
                 );

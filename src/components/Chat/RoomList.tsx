@@ -1,21 +1,21 @@
 import { MessageSquare, Users } from "lucide-react";
 
-import CreateRoom from "./CreateRoom";
+import CreateRoom from "./CreateRoomModal";
 
 import { ScrollArea } from "@/components/ui";
 import { Room } from "@/types/types";
 
-interface ChatRoomProps {
+interface RoomListProps {
   selectedRoom: number;
   setSelectedRoom: (roomId: number) => void;
   chatRooms: Room[];
 }
 
-export default function ChatRoom({
+export default function RoomList({
   selectedRoom,
   setSelectedRoom,
   chatRooms,
-}: ChatRoomProps) {
+}: RoomListProps) {
   return (
     <div className="w-full md:w-1/3 bg-[#f2e8cf] border-r border-[#1c3f39]">
       <div className="p-4 border-b border-[#1c3f39] flex justify-between items-center">
@@ -23,20 +23,23 @@ export default function ChatRoom({
           <Users size={24} className="mr-2" />
           Chat Rooms
         </h2>
-        <CreateRoom />
+        <CreateRoom chatRooms={chatRooms} />
       </div>
-      <ScrollArea className="h-[calc(100vh-73px)]">
+      <ScrollArea className="flex-grow">
         {chatRooms.map((room) => (
           <div
             key={room.id}
-            className={`p-4 border-b border-[#1c3f39] cursor-pointer hover:bg-[#e6d7b8] transition-colors ${
-              selectedRoom === room.id ? "bg-[#d9c8a0]" : ""
+            className={`w-full p-4 text-left hover:bg-[#d4c07e] transition-colors border-b border-[#1c3f39] group ${
+              selectedRoom === room.id ? "bg-[#c2b280]" : ""
             }`}
             onClick={() => setSelectedRoom(room.id)}
           >
             <div className="flex items-center">
-              <MessageSquare size={20} className="mr-3 text-[#1c3f39]" />
-              <h3 className="text-sm font-medium text-[#1c3f39]">
+              <MessageSquare
+                size={20}
+                className="mr-3 h-5 w-5 text-[#1c3f39]"
+              />
+              <h3 className="text-[#1c3f39] group-hover:underline group-focus:underline">
                 {room.title.replaceAll("_", " ")}
               </h3>
             </div>

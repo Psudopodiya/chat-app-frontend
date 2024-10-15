@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
 import { ArrowLeft, Eye, EyeOff, User } from "lucide-react";
+import React, { useEffect, useState } from "react";
+
 import { useAuth } from "@/context/AuthContext";
 
 interface RegisterProps {

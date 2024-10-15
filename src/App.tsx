@@ -1,7 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Profile, Home, LoginRegister } from "./pages";
-import { AuthProvider } from "@/context/AuthContext";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+
 import MainLayout from "./layouts/MainLayout";
+import { Home, LoginRegister, Profile } from "./pages";
+
+import { AuthProvider } from "@/context/AuthContext";
 import PrivateRoute from "@/router/PrivateRoute";
 
 export default function App() {

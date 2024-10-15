@@ -1,50 +1,60 @@
-# React + TypeScript + Vite
+# Chat APP FRONTEND
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Conventional Commits
 
-Currently, two official plugins are available:
+### Format
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+`<type>(optional scope): <description>`
+Example: `feat(pre-event): add speakers section`
 
-## Expanding the ESLint configuration
+### 1. Type
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Available types are:
 
-- Configure the top-level `parserOptions` property like this:
+- feat → Changes about addition or removal of a feature. Ex: `feat: add table on landing page`, `feat: remove table from landing page`
+- fix → Bug fixing, followed by the bug. Ex: `fix: illustration overflows in mobile view`
+- docs → Update documentation (README.md)
+- style → Updating style, and not changing any logic in the code (reorder imports, fix whitespace, remove comments)
+- chore → Installing new dependencies, or bumping deps
+- refactor → Changes in code, same output, but different approach
+- ci → Update github workflows, husky
+- test → Update testing suite, cypress files
+- revert → when reverting commits
+- perf → Fixing something regarding performance (deriving state, using memo, callback)
+- vercel → Blank commit to trigger vercel deployment. Ex: `vercel: trigger deployment`
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
+### 2. Optional Scope
+
+Labels per page Ex: `feat(pre-event): add date label`
+
+\*If there is no scope needed, you don't need to write it
+
+### 3. Description
+
+Description must fully explain what is being done.
+
+Add BREAKING CHANGE in the description if there is a significant change.
+
+**If there are multiple changes, then commit one by one**
+
+- After colon, there are a single space Ex: `feat: add something`
+- When using `fix` type, state the issue Ex: `fix: file size limiter not working`
+- Use imperative, and present tense: "change" not "changed" or "changes"
+- Don't use capitals in front of the sentence
+- Don't add full stop (.) at the end of the sentence
+
+## ESLint Configuration
+
+### 1. Update VS Code Settings
+
+To ensure imports are automatically organized on save, add the following configuration to your VS Code settings.json file
+
+```json
+{
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+    "source.fixAll.eslint": true
   },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+  "eslint.validate": ["typescript", "typescriptreact"]
+}
 ```

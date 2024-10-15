@@ -1,4 +1,6 @@
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { LogOut, Menu, MessageCircle, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 import {
   Button,
   DropdownMenu,
@@ -8,9 +10,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/context/AuthContext";
-import { LogOut, Menu, User, MessageCircle } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const navigate = useNavigate();

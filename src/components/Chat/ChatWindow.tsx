@@ -1,16 +1,18 @@
-import { useState, useEffect, useRef } from "react";
+import { MessageCircle, Send } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+
 import {
-  Button,
-  Input,
-  ScrollArea,
   Avatar,
   AvatarFallback,
   AvatarImage,
+  Button,
+  Input,
+  ScrollArea,
 } from "@/components/ui";
-import { MessageCircle, Send } from "lucide-react";
-import { createWebSocket } from "@/service/chatApi";
 import { useAuth } from "@/context/AuthContext";
+import { createWebSocket } from "@/service/chatApi";
 import { Message } from "@/types/types";
+import { formatTime, groupMessagesByDate } from "@/utils/utils";
 
 interface ChatWindowProps {
   selectedRoom: number;
@@ -92,25 +94,6 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
       </div>
     );
   }
-
-  const groupMessagesByDate = (messages: Message[]) => {
-    const groups: { [key: string]: Message[] } = {};
-    messages.forEach((message) => {
-      const date = new Date(message.timestamp).toLocaleDateString();
-      if (!groups[date]) {
-        groups[date] = [];
-      }
-      groups[date].push(message);
-    });
-    return groups;
-  };
-
-  const formatTime = (timestamp: string) => {
-    return new Date(timestamp).toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
 
   const groupedMessages = groupMessagesByDate(messages);
 

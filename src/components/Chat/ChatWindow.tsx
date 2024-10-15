@@ -75,7 +75,7 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
       wsRef.current.send(
         JSON.stringify({
           message: newMessage,
-        })
+        }),
       );
       setNewMessage("");
     }
@@ -83,9 +83,9 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
 
   if (!selectedRoom) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-[#f2e8cf]">
+      <div className="flex flex-1 items-center justify-center bg-[#f2e8cf]">
         <div className="text-center">
-          <MessageCircle className="h-16 w-16 text-[#1c3f39] mx-auto mb-4" />
+          <MessageCircle className="mx-auto mb-4 h-16 w-16 text-[#1c3f39]" />
           <h2 className="text-xl font-semibold text-[#1c3f39]">
             Select a chat to start messaging
           </h2>
@@ -97,18 +97,18 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
   const groupedMessages = groupMessagesByDate(messages);
 
   return (
-    <div className="flex-1 flex flex-col bg-[#f2e8cf] max-h-full overflow-hidden">
-      <div className="p-4 border-b border-[#1c3f39]">
+    <div className="flex max-h-full flex-1 flex-col overflow-hidden bg-[#f2e8cf]">
+      <div className="border-b border-[#1c3f39] p-4">
         <h2 className="text-xl font-semibold text-[#1c3f39]">
           Room: {selectedRoom}
         </h2>
       </div>
-      <ScrollArea className="flex-1 p-4 overflow-y-auto">
+      <ScrollArea className="flex-1 overflow-y-auto p-4">
         <div className="pb-16">
           {Object.entries(groupedMessages).map(([date, dateMessages]) => (
             <div key={date}>
-              <div className="flex justify-center my-4">
-                <span className="text-[#1c3f39] px-4 rounded-full text-sm tracking-wider border border-[#1c3f39]">
+              <div className="my-4 flex justify-center">
+                <span className="rounded-full border border-[#1c3f39] px-4 text-sm tracking-wider text-[#1c3f39]">
                   {date}
                 </span>
               </div>
@@ -117,7 +117,7 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
                 return (
                   <div
                     key={index}
-                    className={`mb-4 gap-2 flex items-end ${
+                    className={`mb-4 flex items-end gap-2 ${
                       isCurrentUser ? "flex-row-reverse" : "flex-row"
                     }`}
                   >
@@ -128,35 +128,35 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
                           alt={`${message.user}'s avatar`}
                           className="object-cover"
                         />
-                        <AvatarFallback className="bg-[#c2b280] text-[#1c3f39] uppercase tracking-wider rounded-none">
+                        <AvatarFallback className="rounded-none bg-[#c2b280] uppercase tracking-wider text-[#1c3f39]">
                           {message.user.slice(0, 2).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
                     )}
 
                     <div
-                      className={`max-w-[70%] px-4 py-2 rounded-none ${
+                      className={`max-w-[70%] rounded-none px-4 py-2 ${
                         isCurrentUser
-                          ? "bg-[#e8e0c5] text-[#1c3f39] ml-2"
-                          : "bg-[#c2b280] text-[#1c3f39] mr-2"
-                      } shadow-[4px_4px_0_0_#1c3f39] border-2 border-[#1c3f39]`}
+                          ? "ml-2 bg-[#e8e0c5] text-[#1c3f39]"
+                          : "mr-2 bg-[#c2b280] text-[#1c3f39]"
+                      } border-2 border-[#1c3f39] shadow-[4px_4px_0_0_#1c3f39]`}
                     >
                       {!isCurrentUser ? (
                         <div className="flex items-center justify-between">
-                          <p className="text-sm mb-1 text-[#1c3f39] font-bold uppercase tracking-wider">
+                          <p className="mb-1 text-sm font-bold uppercase tracking-wider text-[#1c3f39]">
                             {message.user.toUpperCase()}
                           </p>
 
                           <div className="flex items-center gap-1">
-                            <Clock className="w-3 h-3 text-[#1c3f39]" />
+                            <Clock className="h-3 w-3 text-[#1c3f39]" />
                             <p className="text-xs text-[#5d5a4c]">
                               {formatTime(message.timestamp)}
                             </p>
                           </div>
                         </div>
                       ) : (
-                        <div className="flex items-center gap-1 justify-end">
-                          <Clock className="w-3 h-3 text-[#1c3f39]" />
+                        <div className="flex items-center justify-end gap-1">
+                          <Clock className="h-3 w-3 text-[#1c3f39]" />
                           <p className="text-xs text-[#5d5a4c]">
                             {formatTime(message.timestamp)}
                           </p>
@@ -174,18 +174,18 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
       </ScrollArea>
       <form
         onSubmit={handleSendMessage}
-        className="p-4 border-t border-[#1c3f39] flex"
+        className="flex border-t border-[#1c3f39] p-4"
       >
         <Input
           type="text"
           placeholder="Type a message"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          className="flex-1 mr-2 bg-[#f2e8cf] border-2 border-[#1c3f39] text-[#1c3f39] placeholder-[#1c3f39] focus:ring-[#1c3f39] focus:border-[#1c3f39]"
+          className="mr-2 flex-1 border-2 border-[#1c3f39] bg-[#f2e8cf] text-[#1c3f39] placeholder-[#1c3f39] focus:border-[#1c3f39] focus:ring-[#1c3f39]"
         />
         <Button
           type="submit"
-          className="bg-[#1c3f39] text-[#f2e8cf] hover:bg-[#3a4f5a] transition-colors"
+          className="bg-[#1c3f39] text-[#f2e8cf] transition-colors hover:bg-[#3a4f5a]"
           disabled={!newMessage.trim()}
         >
           <Send className="h-5 w-5" />

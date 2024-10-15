@@ -1,5 +1,6 @@
-import { Camera, Edit, Trash2Icon, User } from "lucide-react";
+import { Camera, Edit, Save, Trash2Icon } from "lucide-react";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   Avatar,
@@ -35,9 +36,10 @@ export default function ProfilePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -110,12 +112,20 @@ export default function ProfilePage() {
 
   return (
     <div>
-      <div className="font-inconsolata min-h-screen bg-gradient-to-b from-[#1c3f39] to-[#354f52] p-8 flex items-center justify-center">
-        <Card className="w-full max-w-2xl mx-auto bg-[#f2e8cf] shadow-xl rounded-xl overflow-hidden">
-          <CardContent className="p-6">
-            <div className="flex flex-col items-center mb-8">
+      <div className="flex min-h-screen items-center justify-center bg-[#f5f1e4] p-8 font-inconsolata">
+        <Card className="relative mx-auto w-full max-w-2xl rounded-none border-4 border-double border-[#1c3f39] bg-[#e8e0c5] shadow-[8px_8px_0_0_#1c3f39]">
+          <CardContent className="p-8">
+            <Button
+              type="button"
+              onClick={() => navigate("/")}
+              variant={"vintage_icon"}
+              className="absolute"
+            >
+              Back to Home
+            </Button>
+            <div className="mb-8 flex flex-col items-center">
               <Avatar
-                className={`w-32 h-32 mb-4 border-4 border-[#354f52] shadow-lg ${
+                className={`mb-6 h-40 w-40 border-4 border-double border-[#1c3f39] shadow-[4px_4px_0_0_#1c3f39] ${
                   isEditing ? "cursor-pointer" : ""
                 }`}
                 onClick={handleImageClick}
@@ -128,7 +138,7 @@ export default function ProfilePage() {
                   alt="Profile picture"
                   className="object-cover"
                 />
-                <AvatarFallback className="text-4xl">
+                <AvatarFallback className="bg-[#d4c9a8] text-4xl text-[#1c3f39]">
                   {user?.username.slice(0, 2).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
@@ -144,7 +154,7 @@ export default function ProfilePage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="bg-white hover:bg-gray-100"
+                  className="border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[2px_2px_0_0_#1c3f39] transition-all hover:bg-[#e8e0c5] hover:shadow-none"
                   onClick={handleImageClick}
                 >
                   <Camera className="mr-2 h-4 w-4" />
@@ -157,11 +167,11 @@ export default function ProfilePage() {
               className="flex flex-col justify-center gap-8"
               onSubmit={handleSubmit}
             >
-              <div className="flex items-center justify-around">
+              <div className="grid grid-cols-2 gap-6">
                 <div>
                   <Label
                     htmlFor="username"
-                    className="text-sm font-medium text-gray-700"
+                    className="mb-2 text-sm font-bold uppercase tracking-wider text-[#1c3f39]"
                   >
                     Username
                   </Label>
@@ -170,14 +180,14 @@ export default function ProfilePage() {
                     name="username"
                     value={formData.username}
                     onChange={handleInputChange}
-                    className="bg-white w-fit"
+                    className="border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39]"
                     disabled={!isEditing}
                   />
                 </div>
                 <div>
                   <Label
                     htmlFor="email"
-                    className="text-sm font-medium text-gray-700"
+                    className="mb-2 text-sm font-bold uppercase tracking-wider text-[#1c3f39]"
                   >
                     Email
                   </Label>
@@ -186,7 +196,7 @@ export default function ProfilePage() {
                     name="email"
                     type="email"
                     value={user?.email}
-                    className="bg-white"
+                    className="border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39]"
                     disabled={true}
                   />
                 </div>
@@ -195,7 +205,7 @@ export default function ProfilePage() {
               <div>
                 <Label
                   htmlFor="bio"
-                  className="text-sm font-medium text-gray-700"
+                  className="mb-2 text-sm font-bold uppercase tracking-wider text-[#1c3f39]"
                 >
                   Bio
                 </Label>
@@ -204,22 +214,22 @@ export default function ProfilePage() {
                   name="bio"
                   value={formData.bio}
                   onChange={handleInputChange}
-                  className="bg-white mt-1"
+                  className="border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39]"
                   rows={4}
                   placeholder="Tell us about yourself..."
                   disabled={!isEditing}
                 />
               </div>
 
-              <div className="flex justify-around">
+              <div className="flex justify-between">
                 <Button
-                  className="w-fit bg-[#354f52] hover:bg-[#1c3f39] text-white"
+                  className="rounded-none border-2 border-[#1c3f39] bg-[#1c3f39] font-bold uppercase tracking-wider text-[#f5f1e4] shadow-[4px_4px_0_0_#0a1f1c] transition-all hover:bg-[#2c4f49] hover:shadow-none"
                   type="submit"
                   disabled={isLoading}
                 >
                   {isEditing ? (
                     <>
-                      <User className="mr-2 h-4 w-4" />
+                      <Save className="mr-2 h-4 w-4" />
                       {isLoading ? "Updating..." : "Update Changes"}
                     </>
                   ) : (
@@ -232,7 +242,7 @@ export default function ProfilePage() {
 
                 <Button
                   variant="outline"
-                  className="w-fit text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
+                  className="rounded-none border-2 border-[#8b0000] bg-[#f5f1e4] font-bold uppercase tracking-wider text-[#8b0000] shadow-[4px_4px_0_0_#8b0000] transition-all hover:bg-[#e8d8b0] hover:text-[#a50000] hover:shadow-none"
                   onClick={handleDeleteAccount}
                   type="button"
                 >

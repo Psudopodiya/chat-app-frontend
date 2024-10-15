@@ -17,9 +17,9 @@ export default function RoomList({
   chatRooms,
 }: RoomListProps) {
   return (
-    <div className="w-full md:w-1/3 bg-[#f2e8cf] border-r border-[#1c3f39]">
-      <div className="p-4 border-b border-[#1c3f39] flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-[#1c3f39] flex items-center">
+    <div className="w-full border-r border-[#1c3f39] bg-[#f2e8cf] md:w-1/3">
+      <div className="flex items-center justify-between border-b border-[#1c3f39] p-4">
+        <h2 className="flex items-center text-xl font-semibold text-[#1c3f39]">
           <Users size={24} className="mr-2" />
           Chat Rooms
         </h2>
@@ -29,7 +29,7 @@ export default function RoomList({
         {chatRooms.map((room) => (
           <div
             key={room.id}
-            className={`w-full p-4 text-left hover:bg-[#d4c07e] transition-colors border-b border-[#1c3f39] group ${
+            className={`group w-full border-b border-[#1c3f39] p-4 text-left transition-colors hover:bg-[#d4c07e] ${
               selectedRoom === room.id ? "bg-[#c2b280]" : ""
             }`}
             onClick={() => setSelectedRoom(room.id)}

@@ -25,7 +25,7 @@ const buttonVariants = cva(
           "hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
         link: "text-zinc-900 underline-offset-4 hover:underline dark:text-zinc-50",
         vintage_icon:
-          "rounded-none border-2 border-[#1c3f39] bg-transparent p-1 text-[#1c3f39] shadow-[2px_2px_0_0_#1c3f39] transition-all hover:bg-[#e8e0c5] hover:shadow-none",
+          "border-2 border-[#1c3f39] bg-transparent text-[#1c3f39] shadow-[2px_2px_0_0_#1c3f39] transition-all hover:bg-[#e8e0c5] hover:shadow-none",
       },
       size: {
         default: "h-9 px-4 py-2",

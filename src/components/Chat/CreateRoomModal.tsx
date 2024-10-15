@@ -69,20 +69,20 @@ export default function CreateRoomModal({ chatRooms }: CreateRoomModalProps) {
     <>
       <Button
         onClick={() => setIsModalOpen(true)}
-        className="bg-[#1c3f39] hover:bg-[#2c4f49] text-[#f5f1e4] rounded-none border-2 border-[#1c3f39] shadow-[2px_2px_0_0_#0a1f1c] hover:shadow-none transition-all"
+        className="rounded-none border-2 border-[#1c3f39] bg-[#1c3f39] text-[#f5f1e4] shadow-[2px_2px_0_0_#0a1f1c] transition-all hover:bg-[#2c4f49] hover:shadow-none"
       >
         <PlusCircle size={20} className="mr-2" />
         Create Room
       </Button>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="bg-[#f5f1e4] border-2 border-[#1c3f39]">
+        <DialogContent className="border-2 border-[#1c3f39] bg-[#f5f1e4]">
           <DialogHeader className="border-b-4 border-double border-[#1c3f39] p-6">
-            <DialogTitle className="text-[#1c3f39] text-2xl font-bold uppercase tracking-wider flex items-center justify-between">
+            <DialogTitle className="flex items-center justify-between text-2xl font-bold uppercase tracking-wider text-[#1c3f39]">
               Create New Room
               <Button
                 onClick={() => setIsModalOpen(false)}
-                className="bg-transparent hover:bg-[#e8e0c5] text-[#1c3f39] rounded-none border-2 border-[#1c3f39] shadow-[2px_2px_0_0_#1c3f39] hover:shadow-none transition-all p-1"
+                className="rounded-none border-2 border-[#1c3f39] bg-transparent p-1 text-[#1c3f39] shadow-[2px_2px_0_0_#1c3f39] transition-all hover:bg-[#e8e0c5] hover:shadow-none"
               >
                 <XSquare size={20} />
               </Button>
@@ -92,7 +92,7 @@ export default function CreateRoomModal({ chatRooms }: CreateRoomModalProps) {
             <div className="mb-6">
               <label
                 htmlFor="title"
-                className="block text-[#1c3f39] text-sm font-bold uppercase tracking-wider mb-2"
+                className="mb-2 block text-sm font-bold uppercase tracking-wider text-[#1c3f39]"
               >
                 Room Name
               </label>
@@ -103,14 +103,14 @@ export default function CreateRoomModal({ chatRooms }: CreateRoomModalProps) {
                 placeholder="Enter room name"
                 value={roomInfo.title}
                 onChange={(e) => setRoomInfo({ title: e.target.value })}
-                className="bg-[#f9f6ed] border-2 border-[#1c3f39] text-[#1c3f39] rounded-none shadow-[inset_2px_2px_0_0_#1c3f39] focus:shadow-[inset_-2px_-2px_0_0_#1c3f39] transition-all placeholder-[#5d5a4c]"
+                className="rounded-none border-2 border-[#1c3f39] bg-[#f9f6ed] text-[#1c3f39] placeholder-[#5d5a4c] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39]"
               />
             </div>
             <DialogFooter className="flex justify-end space-x-4">
               <Button
                 type="submit"
                 disabled={!roomInfo.title || isCreating}
-                className="bg-[#1c3f39] hover:bg-[#2c4f49] text-[#f5f1e4] rounded-none border-2 border-[#1c3f39] shadow-[4px_4px_0_0_#0a1f1c] hover:shadow-none transition-all uppercase tracking-wider font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+                className="rounded-none border-2 border-[#1c3f39] bg-[#1c3f39] font-bold uppercase tracking-wider text-[#f5f1e4] shadow-[4px_4px_0_0_#0a1f1c] transition-all hover:bg-[#2c4f49] hover:shadow-none disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isCreating ? "Creating..." : "Create Room"}
               </Button>

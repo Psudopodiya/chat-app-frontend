@@ -1,14 +1,12 @@
 import { useState } from "react";
 
-import LoginView from "@/components/Auth/LoginView";
-import RegisterView from "@/components/Auth/RegisterView";
-import WelcomeView from "@/components/Auth/WelcomeView";
+import { LoginView, RegisterView, WelcomeView } from "@/components/Auth";
 
 export default function LoginRegister() {
   const [view, setView] = useState<"welcome" | "login" | "signup">("welcome");
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#1c3f39] p-4 font-inconsolata">
+    <div className="flex min-h-screen items-center justify-center bg-[#1c3f39] p-4">
       {view === "welcome" && (
         <WelcomeView
           onLoginClick={() => setView("login")}

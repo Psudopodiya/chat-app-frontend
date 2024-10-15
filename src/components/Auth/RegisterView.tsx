@@ -1,6 +1,7 @@
-import { ArrowLeft, Eye, EyeOff, User } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
+import { Button, Input, Label } from "@/components/ui";
 import { useAuth } from "@/context/AuthContext";
 
 interface RegisterProps {
@@ -57,104 +58,109 @@ const RegisterView: React.FC<RegisterProps> = ({
   }, [error]);
 
   return (
-    <div className="bg-[#f2e8cf] p-8 rounded-3xl max-w-md w-full">
-      <button onClick={onBackClick} className="text-[#1c3f39] mb-6">
+    <div className="w-full max-w-md rounded-3xl bg-[#f2e8cf] p-8">
+      <Button onClick={onBackClick} variant={"vintage_icon"} className="mb-4">
         <ArrowLeft size={24} />
-      </button>
-      <h1 className="text-3xl font-bold text-[#1c3f39] mb-8">
+      </Button>
+      <h1 className="mb-8 text-3xl font-bold text-[#1c3f39]">
         Welcome,
         <br />
         Sign up!
       </h1>
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="relative">
-          <label
+        <div>
+          <Label
             htmlFor="username"
-            className="text-sm text-[#1c3f39] mb-1 block"
+            className="mb-2 text-sm font-bold uppercase tracking-wider text-[#1c3f39]"
           >
             Username
-          </label>
-          <input
+          </Label>
+          <Input
             id="username"
             name="username"
             type="text"
             value={inputData.username}
             onChange={handleInputChange}
             placeholder="example name"
-            className="w-full bg-[#f2e8cf] border-2 border-[#1c3f39] rounded-full py-3 px-4 text-[#1c3f39]"
+            className="border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39]"
           />
-          <User className="absolute right-4 top-10 text-[#1c3f39]" size={20} />
         </div>
-        <div className="relative">
-          <label htmlFor="email" className="text-sm text-[#1c3f39] mb-1 block">
+        <div>
+          <Label
+            htmlFor="email"
+            className="mb-2 text-sm font-bold uppercase tracking-wider text-[#1c3f39]"
+          >
             Email
-          </label>
-          <input
+          </Label>
+          <Input
             name="email"
             id="email"
             onChange={handleInputChange}
             value={inputData.email}
             type="email"
             placeholder="example@email.com"
-            className="w-full bg-[#f2e8cf] border-2 border-[#1c3f39] rounded-full py-3 px-4 text-[#1c3f39]"
+            className="border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39]"
           />
         </div>
-        <div className="relative">
-          <label
+        <div>
+          <Label
             htmlFor="password"
-            className="text-sm text-[#1c3f39] mb-1 block"
+            className="mb-2 text-sm font-bold uppercase tracking-wider text-[#1c3f39]"
           >
             Password
-          </label>
-          <input
-            id="password"
-            name="password"
-            onChange={handleInputChange}
-            value={inputData.password}
-            type={showPassword ? "text" : "password"}
-            placeholder="••••••••••••••"
-            className="w-full bg-[#f2e8cf] border-2 border-[#1c3f39] rounded-full py-3 px-4 text-[#1c3f39]"
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-4 top-10 text-[#1c3f39]"
-          >
-            {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
-          </button>
+          </Label>
+          <div className="flex gap-5">
+            <Input
+              id="password"
+              name="password"
+              onChange={handleInputChange}
+              value={inputData.password}
+              type={showPassword ? "text" : "password"}
+              placeholder="••••••••••••••"
+              className="border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39]"
+            />
+            <Button
+              onClick={() => setShowPassword(!showPassword)}
+              type="button"
+              variant={"vintage_icon"}
+            >
+              {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+            </Button>
+          </div>
         </div>
 
-        <div className="relative">
-          <label
+        <div>
+          <Label
             htmlFor="confirmPassword"
-            className="text-sm text-[#1c3f39] mb-1 block"
+            className="mb-2 text-sm font-bold uppercase tracking-wider text-[#1c3f39]"
           >
             Confirm Password
-          </label>
-          <input
+          </Label>
+          <Input
             id="confirmPassword"
             name="confirmPassword"
             onChange={handleInputChange}
             value={inputData.confirmPassword}
             type="password"
             placeholder="••••••••••••••"
-            className="w-full bg-[#f2e8cf] border-2 border-[#1c3f39] rounded-full py-3 px-4 text-[#1c3f39]"
+            className="border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39]"
           />
         </div>
 
-        {error && <p className="text-red-500 text-center">{error}</p>}
-        <button
-          type="submit"
-          className="w-full bg-[#1c3f39] text-[#f2e8cf] py-3 rounded-full mt-8 font-semibold"
-        >
+        {error && <p className="text-center text-red-500">{error}</p>}
+        <Button type="submit" variant={"vintage_primary"} className="w-full">
           Sign up
-        </button>
+        </Button>
       </form>
       <p className="mt-6 text-center text-sm text-[#1c3f39]">
         Have an account?{" "}
-        <button onClick={onLoginClick} className="underline font-semibold">
+        <Button
+          onClick={onLoginClick}
+          variant={"vintage_secondary"}
+          className="underline"
+        >
           Login
-        </button>
+        </Button>
       </p>
     </div>
   );

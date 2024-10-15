@@ -1,14 +1,15 @@
+import { PlusCircle } from "lucide-react";
 import { useState } from "react";
+
 import {
   Button,
-  Input,
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
+  Input,
 } from "@/components/ui";
-import { PlusCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { createRoom } from "@/service/chatApi";
 
@@ -22,13 +23,19 @@ export default function CreateRoom() {
     e.preventDefault();
     setIsCreating(true);
 
+    const updatedRoomInfo = {
+      ...roomInfo,
+      title: roomInfo.title.replaceAll(" ", "_"),
+    };
+
+    console.log(updatedRoomInfo);
     try {
-      await createRoom(roomInfo);
-      setIsModalOpen(false);
+      await createRoom(updatedRoomInfo);
       toast({
         title: "Success",
         description: "Room created successfully!",
       });
+      setIsCreating(false);
     } catch (error) {
       console.error("Error creating room:", error);
       toast({

@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { CreateRoom } from "@/types/types";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;

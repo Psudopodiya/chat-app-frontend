@@ -38,7 +38,6 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
 
       wsRef.current.onmessage = (event) => {
         const data = JSON.parse(event.data);
-        console.log("Received message:", data);
         if (data.type === "chat_history") {
           setMessages(data.messages);
         } else {

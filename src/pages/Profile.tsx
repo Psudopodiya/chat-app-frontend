@@ -1,21 +1,20 @@
-"use client";
+import { Camera, Edit, Trash2Icon, User } from "lucide-react";
+import { useRef, useState } from "react";
 
-import { useState, useRef } from "react";
-import { Camera, User, Trash2Icon, Edit } from "lucide-react";
 import {
-  Input,
-  Label,
-  Textarea,
   Avatar,
   AvatarFallback,
   AvatarImage,
   Button,
   Card,
   CardContent,
+  Input,
+  Label,
+  Textarea,
 } from "@/components/ui";
 import { useAuth } from "@/context/AuthContext";
-import { updateProfile } from "@/service/userApi";
 import { useToast } from "@/hooks/use-toast";
+import { updateProfile } from "@/service/userApi";
 
 type FormDataType = {
   username?: string;

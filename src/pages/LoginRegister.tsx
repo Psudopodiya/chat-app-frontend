@@ -1,8 +1,9 @@
+import { useState } from "react";
+
 import LoginView from "@/components/Auth/LoginView";
 import RegisterView from "@/components/Auth/RegisterView";
 import WelcomeView from "@/components/Auth/WelcomeView";
 
-import { useState } from "react";
 export default function LoginRegister() {
   const [view, setView] = useState<"welcome" | "login" | "signup">("welcome");
 

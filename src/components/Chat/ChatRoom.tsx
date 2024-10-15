@@ -1,6 +1,8 @@
-import { ScrollArea } from "@/components/ui";
 import { MessageSquare, Users } from "lucide-react";
+
 import CreateRoom from "./CreateRoom";
+
+import { ScrollArea } from "@/components/ui";
 import { Room } from "@/types/types";
 
 interface ChatRoomProps {
@@ -35,7 +37,7 @@ export default function ChatRoom({
             <div className="flex items-center">
               <MessageSquare size={20} className="mr-3 text-[#1c3f39]" />
               <h3 className="text-sm font-medium text-[#1c3f39]">
-                {room.title.replace("_", " ")}
+                {room.title.replaceAll("_", " ")}
               </h3>
             </div>
           </div>

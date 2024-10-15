@@ -1,14 +1,15 @@
+import axios from "axios";
 import {
   createContext,
-  useState,
-  useContext,
   ReactNode,
+  useContext,
   useEffect,
+  useState,
 } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { loginUser, registerUser } from "@/service/authApi";
 import { getUser } from "@/service/userApi";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { User } from "@/types/types";
 
 interface AuthContextType {

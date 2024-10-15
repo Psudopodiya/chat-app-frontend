@@ -26,7 +26,7 @@ const LoginView: React.FC<LoginProps> = ({ onBackClick, onSignupClick }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const response = await login(inputData);
-    console.log(response);
+
     if (response.success) {
       nav("/");
     } else {

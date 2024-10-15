@@ -38,7 +38,6 @@ const RegisterView: React.FC<RegisterProps> = ({
 
     const { username, password, email } = inputData;
     const response = await register({ username, email, password });
-    console.log(">>>", response);
     if (response.success) {
       onLoginClick();
     } else {

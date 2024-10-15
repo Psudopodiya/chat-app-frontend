@@ -80,15 +80,13 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen font-inconsolata">
-      <div className="flex flex-1 overflow-hidden h-screen">
-        <ChatRoom
-          selectedRoom={selectedRoom}
-          setSelectedRoom={setSelectedRoom}
-          chatRooms={chatRooms}
-        />
-        <ChatWindow selectedRoom={selectedRoom} />
-      </div>
+    <div className="flex h-full overflow-hidden bg-[#f2e8cf]">
+      <ChatRoom
+        selectedRoom={selectedRoom}
+        setSelectedRoom={setSelectedRoom}
+        chatRooms={chatRooms}
+      />
+      <ChatWindow selectedRoom={selectedRoom} />
     </div>
   );
 }

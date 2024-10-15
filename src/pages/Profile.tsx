@@ -109,8 +109,6 @@ export default function ProfilePage() {
     }
   };
 
-  console.log(previewImage, user?.profile_image);
-
   return (
     <div>
       <div className="font-inconsolata min-h-screen bg-gradient-to-b from-[#1c3f39] to-[#354f52] p-8 flex items-center justify-center">

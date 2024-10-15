@@ -8,29 +8,31 @@ export default function App() {
   return (
     <Router>
       <AuthProvider>
-        <Routes>
-          <Route path="/login" element={<LoginRegister />} />
-          <Route
-            path=""
-            element={
-              <PrivateRoute>
-                <MainLayout>
-                  <Home />
-                </MainLayout>
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <PrivateRoute>
-                <MainLayout>
-                  <Profile />
-                </MainLayout>
-              </PrivateRoute>
-            }
-          />
-        </Routes>
+        <div className="h-screen flex flex-col overflow-hidden">
+          <Routes>
+            <Route path="/login" element={<LoginRegister />} />
+            <Route
+              path=""
+              element={
+                <PrivateRoute>
+                  <MainLayout>
+                    <Home />
+                  </MainLayout>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <MainLayout>
+                    <Profile />
+                  </MainLayout>
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </div>
       </AuthProvider>
     </Router>
   );

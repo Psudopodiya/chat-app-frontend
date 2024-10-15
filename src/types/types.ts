@@ -11,6 +11,7 @@ export interface Message {
   message: string;
   user: string;
   profile_image_url: string;
+  timestamp: string;
 }
 
 export interface User {

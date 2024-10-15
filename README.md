@@ -1,53 +1,93 @@
-# Chat APP FRONTEND
+# Chat App Frontend - Conventional Commits Guide
 
-## Conventional Commits
+Welcome to the **Chat App Frontend**! This guide covers the **Conventional Commits** format used in this project to maintain consistency and clarity in commit messages.
 
-### Format
+## 📝 Commit Message Format
 
-`<type>(optional scope): <description>`
-Example: `feat(pre-event): add speakers section`
+Each commit message follows the structure:
 
-### 1. Type
+```
+<type>(optional scope): <description>
+```
 
-Available types are:
+### Example:
 
-- feat → Changes about addition or removal of a feature. Ex: `feat: add table on landing page`, `feat: remove table from landing page`
-- fix → Bug fixing, followed by the bug. Ex: `fix: illustration overflows in mobile view`
-- docs → Update documentation (README.md)
-- style → Updating style, and not changing any logic in the code (reorder imports, fix whitespace, remove comments)
-- chore → Installing new dependencies, or bumping deps
-- refactor → Changes in code, same output, but different approach
-- ci → Update github workflows, husky
-- test → Update testing suite, cypress files
-- revert → when reverting commits
-- perf → Fixing something regarding performance (deriving state, using memo, callback)
-- vercel → Blank commit to trigger vercel deployment. Ex: `vercel: trigger deployment`
+```
+feat(pre-event): add speakers section
+```
 
-### 2. Optional Scope
+### 🎯 Key Components:
 
-Labels per page Ex: `feat(pre-event): add date label`
+1. **Type**: The type indicates the nature of changes made in the commit.
+2. **Scope (Optional)**: A label indicating which part of the app the commit affects.
+3. **Description**: A concise explanation of the commit’s intent in the present tense.
 
-\*If there is no scope needed, you don't need to write it
+---
 
-### 3. Description
+## 🔍 1. Type
 
-Description must fully explain what is being done.
+Choose one of the following types based on your change:
 
-Add BREAKING CHANGE in the description if there is a significant change.
+- **feat**: Adding or removing a feature.
+  - Example: `feat: add table on landing page`
+- **fix**: Fixing a bug or issue.
+  - Example: `fix: illustration overflows in mobile view`
+- **docs**: Documentation updates.
+  - Example: `docs: update README.md with new sections`
+- **style**: Formatting and styling changes without altering logic.
+  - Example: `style: fix code indentations`
+- **chore**: Changes to build process or dependencies.
+  - Example: `chore: bump dependencies`
+- **refactor**: Refactoring code without changing output.
+  - Example: `refactor: restructure user service logic`
+- **ci**: Continuous Integration (CI) updates.
+  - Example: `ci: update GitHub actions workflow`
+- **test**: Modifying or adding test files.
+  - Example: `test: add unit tests for login component`
+- **revert**: Reverting a previous commit.
+  - Example: `revert: undo button style change`
+- **perf**: Performance improvements.
+  - Example: `perf: optimize rendering of chat component`
+- **vercel**: Trigger deployment via Vercel.
+  - Example: `vercel: trigger deployment`
 
-**If there are multiple changes, then commit one by one**
+---
 
-- After colon, there are a single space Ex: `feat: add something`
-- When using `fix` type, state the issue Ex: `fix: file size limiter not working`
-- Use imperative, and present tense: "change" not "changed" or "changes"
-- Don't use capitals in front of the sentence
-- Don't add full stop (.) at the end of the sentence
+## 🔍 2. Optional Scope
 
-## ESLint Configuration
+You may add a scope to specify which part of the project the commit affects. This is especially useful for larger projects with many components.
+
+### Example:
+
+```
+feat(pre-event): add date label
+```
+
+---
+
+## 🔍 3. Description
+
+The description should clearly explain the **"what"** and **"why"** behind the change. Keep the following in mind:
+
+- Use **present tense** (e.g., “change” instead of “changed” or “changes”).
+- Avoid capital letters at the beginning.
+- No full stops (`.`) at the end.
+- If your change has **BREAKING CHANGES**, add that to the description.
+- For **fix** commits, always mention the issue you are fixing.
+
+### Example:
+
+```
+fix: resolve image load error on profile page
+```
+
+---
+
+## ⚙️ ESLint Configuration
 
 ### 1. Update VS Code Settings
 
-To ensure imports are automatically organized on save, add the following configuration to your VS Code settings.json file
+To ensure clean code formatting, add the following to your `settings.json` in VS Code:
 
 ```json
 {
@@ -58,3 +98,18 @@ To ensure imports are automatically organized on save, add the following configu
   "eslint.validate": ["typescript", "typescriptreact"]
 }
 ```
+
+This setup ensures that:
+
+- Imports are automatically organized.
+- ESLint fixes are applied automatically on save.
+
+---
+
+## 🚀 Best Practices for Commits
+
+- If you have **multiple changes**, commit them **one by one**.
+- Keep your commit messages **clear and concise**.
+- Always follow this format for a consistent commit history.
+
+Happy Coding! ✨

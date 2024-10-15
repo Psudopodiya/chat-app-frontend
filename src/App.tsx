@@ -5,12 +5,13 @@ import { Home, LoginRegister, Profile } from "./pages";
 
 import { AuthProvider } from "@/context/AuthContext";
 import PrivateRoute from "@/router/PrivateRoute";
+import "./App.css";
 
 export default function App() {
   return (
     <Router>
       <AuthProvider>
-        <div className="h-screen flex flex-col overflow-hidden">
+        <div className="flex h-screen flex-col overflow-hidden">
           <Routes>
             <Route path="/login" element={<LoginRegister />} />
             <Route

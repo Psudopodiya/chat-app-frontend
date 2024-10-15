@@ -33,7 +33,7 @@ export const updateProfile = async (formData: {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-    }
+    },
   );
   return response.data;
 };

@@ -27,7 +27,7 @@ export const createRoom = async (createRoomInfo: CreateRoom) => {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-    }
+    },
   );
   return response.data;
 };

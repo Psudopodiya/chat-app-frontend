@@ -37,7 +37,7 @@ export default function Home() {
           if (data.type === "room_created") {
             setChatRooms((prevRooms) => {
               const roomExists = prevRooms.some(
-                (room) => room.id === data.message.id
+                (room) => room.id === data.message.id,
               );
               if (!roomExists) {
                 return [...prevRooms, data.message];
@@ -46,7 +46,7 @@ export default function Home() {
             });
           } else if (data.type === "room_deleted") {
             setChatRooms((prevRooms) =>
-              prevRooms.filter((room) => room.id !== data.message.id)
+              prevRooms.filter((room) => room.id !== data.message.id),
             );
           }
         };
@@ -60,7 +60,7 @@ export default function Home() {
           wsRef.current = null; // Reset WebSocket reference
           if (!event.wasClean) {
             console.log(
-              "Connection was closed unexpectedly, attempting to reconnect..."
+              "Connection was closed unexpectedly, attempting to reconnect...",
             );
             setTimeout(connectWebSocket, 1000); // Attempt to reconnect after 1 second
           }

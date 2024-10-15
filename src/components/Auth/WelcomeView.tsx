@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Button } from "@/components/ui";
+
 interface WelcomeProps {
   onLoginClick: () => void;
   onSignupClick: () => void;
@@ -10,30 +12,32 @@ const WelcomeView: React.FC<WelcomeProps> = ({
   onSignupClick,
 }) => {
   return (
-    <div className="bg-[#f2e8cf] p-8 rounded-3xl max-w-md w-full">
+    <div className="w-full max-w-md bg-[#f2e8cf] p-8">
       <div className="mb-8">
         <img
           src="/welcome.png"
           alt="Welcome Illustration"
-          className="w-full h-auto"
+          className="h-auto w-full"
         />
       </div>
-      <h1 className="text-2xl font-bold text-[#1c3f39] mb-4">Hello!</h1>
-      <p className="text-[#1c3f39] mb-8">
+      <h1 className="mb-4 text-2xl font-bold text-[#1c3f39]">Hello!</h1>
+      <p className="mb-8 text-[#1c3f39]">
         Create your account and if you have one, log in
       </p>
-      <button
+      <Button
         onClick={onLoginClick} // Use the onLoginClick prop
-        className="w-full bg-[#1c3f39] text-[#f2e8cf] py-3 rounded-full mb-4 font-semibold"
+        variant={"vintage_primary"}
+        className="mb-4 w-full"
       >
         Log In
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={onSignupClick} // Use the onSignupClick prop
-        className="w-full border-2 border-[#1c3f39] text-[#1c3f39] py-3 rounded-full font-semibold"
+        variant={"vintage_secondary"}
+        className="w-full"
       >
         Sign up
-      </button>
+      </Button>
     </div>
   );
 };

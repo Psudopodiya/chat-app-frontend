@@ -13,6 +13,7 @@ export default function Home() {
     const fetchChatRooms = async () => {
       try {
         const rooms = await getChatRooms();
+        console.log("Initial Chat romms", rooms);
         setChatRooms(rooms);
       } catch (error) {
         console.error("Failed to fetch chat rooms:", error);
@@ -34,6 +35,7 @@ export default function Home() {
 
         ws.onmessage = (event) => {
           const data = JSON.parse(event.data);
+          console.log("Websocket Data:", data);
           if (data.type === "room_created") {
             setChatRooms((prevRooms) => {
               const roomExists = prevRooms.some(

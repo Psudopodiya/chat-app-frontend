@@ -26,6 +26,7 @@ interface AuthContextType {
   }) => Promise<{ success: boolean; error: string | null }>;
   logout: () => void;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  handleUserUpdates: (updatedUser: User) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -137,7 +138,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, login, logout, register, user, setUser }} // Expose setUser
+      value={{
+        isAuthenticated,
+        login,
+        logout,
+        register,
+        user,
+        setUser,
+        handleUserUpdates,
+      }} // Expose setUser
     >
       {children}
     </AuthContext.Provider>

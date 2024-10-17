@@ -16,12 +16,7 @@ export const getUser = async () => {
   return response.data;
 };
 
-export const updateProfile = async (formData: {
-  username?: string;
-  bio?: string;
-  email?: string;
-  profile_image?: string;
-}) => {
+export const updateProfile = async (formData: FormData) => {
   const accessToken = localStorage.getItem("access_token");
   if (!accessToken) {
     throw new Error("No access token found");
@@ -35,5 +30,18 @@ export const updateProfile = async (formData: {
       },
     },
   );
+  return response.data;
+};
+
+export const getUserList = async () => {
+  const accessToken = localStorage.getItem("access_token");
+  if (!accessToken) {
+    throw new Error("No access token found");
+  }
+  const response = await axios.get(`${BASE_URL}users/list/`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return response.data;
 };

@@ -29,10 +29,13 @@ export default function RoomList({
         <CreateRoom chatRooms={chatRooms} />
       </div>
       <ScrollArea className="flex-grow">
-        {chatRooms.map(
-          (room) =>
-            (room.participants?.length === 0 ||
-              room.participants?.includes(user?.username ?? "")) && (
+        {chatRooms.map((room) => {
+          const canJoinRoom =
+            room.participants?.length === 0 ||
+            room.participants?.includes(user?.username ?? "") ||
+            room.owner === user?.username;
+          return (
+            canJoinRoom && (
               <div
                 key={room.id}
                 className={`group w-full border-b border-[#1c3f39] p-4 text-left transition-colors hover:bg-[#d4c07e] ${
@@ -50,8 +53,9 @@ export default function RoomList({
                   </h3>
                 </div>
               </div>
-            ),
-        )}
+            )
+          );
+        })}
       </ScrollArea>
     </div>
   );

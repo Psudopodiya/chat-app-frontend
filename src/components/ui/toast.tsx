@@ -23,14 +23,14 @@ const ToastViewport = React.forwardRef<
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
 
 const toastVariants = cva(
-  "group pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-md border border-zinc-200 p-4 pr-6 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full dark:border-zinc-800",
+  "group pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden border-4 border-double p-4 pr-6 shadow-[4px_4px_0_0_#1c3f39] transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full dark:border-zinc-800",
   {
     variants: {
       variant: {
         default:
-          "border-2 border-green-500 bg-green-500 shadow-[2px_2px_0_0_#1c3f39] text-zinc-50 dark:border-green-900 dark:bg-green-900 dark:text-zinc-50",
+          "border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] dark:border-[#2c4f49] dark:bg-[#e8e0c5] dark:text-[#1c3f39]",
         destructive:
-          "destructive group border-2 border-red-500 bg-red-500 shadow-[2px_2px_0_0_#991b1b] text-zinc-50 dark:border-red-900 dark:bg-red-900 dark:text-zinc-50",
+          "destructive group border-[#991b1b] bg-[#f5f1e4] text-[#991b1b] dark:border-[#7f1d1d] dark:bg-[#e8e0c5] dark:text-[#991b1b]",
       },
     },
     defaultVariants: {
@@ -48,6 +48,12 @@ const Toast = React.forwardRef<
     <ToastPrimitives.Root
       ref={ref}
       className={cn(toastVariants({ variant }), className)}
+      // Add these 3 handlers to achieve auto-closing every time. Even you click on it.
+      onPause={() => {}}
+      onResume={() => {}}
+      onFocus={(e) => e.currentTarget.blur()}
+      // Add this to globally set toast duration. Default is 5000 (5 seconds)
+      duration={2000}
       {...props}
     />
   );

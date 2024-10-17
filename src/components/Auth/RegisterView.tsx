@@ -1,8 +1,9 @@
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { Button, Input, Label } from "@/components/ui";
 import { useAuth } from "@/context/AuthContext";
+import { useToast } from "@/hooks/use-toast";
 
 interface RegisterProps {
   onLoginClick: () => void;
@@ -19,9 +20,15 @@ const RegisterView: React.FC<RegisterProps> = ({
     email: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState({
+    username: "",
+    password: "",
+    email: "",
+    confirmPassword: "",
+  });
   const { register } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const { toast } = useToast();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -29,12 +36,52 @@ const RegisterView: React.FC<RegisterProps> = ({
       ...prevData,
       [name]: value,
     }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    let hasError = false;
+    const newErrors = {
+      username: "",
+      password: "",
+      email: "",
+      confirmPassword: "",
+    };
+
+    if (!inputData.username.trim()) {
+      newErrors.username = "Username is required";
+      hasError = true;
+    }
+
+    if (!inputData.email.trim()) {
+      newErrors.email = "Email is required";
+      hasError = true;
+    } else if (!/\S+@\S+\.\S+/.test(inputData.email)) {
+      newErrors.email = "Email is invalid";
+      hasError = true;
+    }
+
+    if (!inputData.password.trim()) {
+      newErrors.password = "Password is required";
+      hasError = true;
+    } else if (inputData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters long";
+      hasError = true;
+    }
+
     if (inputData.confirmPassword !== inputData.password) {
-      setError("Passwords do not match.");
+      newErrors.confirmPassword = "Passwords do not match";
+      hasError = true;
+    }
+
+    if (hasError) {
+      setErrors(newErrors);
       return;
     }
 
@@ -43,26 +90,20 @@ const RegisterView: React.FC<RegisterProps> = ({
     if (response.success) {
       onLoginClick();
     } else {
-      setError(response.error);
+      toast({
+        title: "Registration Error",
+        description: response.error,
+        variant: "destructive",
+      });
     }
   };
 
-  useEffect(() => {
-    if (error) {
-      const timer = setTimeout(() => {
-        setError(null);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [error]);
-
   return (
-    <div className="w-full max-w-md rounded-3xl bg-[#f2e8cf] p-8">
-      <Button onClick={onBackClick} variant={"vintage_icon"} className="mb-4">
+    <div className="w-full max-w-md rounded-none border-4 border-double border-[#1c3f39] bg-[#f2e8cf] p-8 shadow-[4px_4px_0_0_#1c3f39]">
+      <Button onClick={onBackClick} variant="vintage_icon" className="mb-4">
         <ArrowLeft size={24} />
       </Button>
-      <h1 className="mb-8 text-3xl font-bold text-[#1c3f39]">
+      <h1 className="mb-8 text-3xl font-bold uppercase tracking-wide text-[#1c3f39]">
         Welcome,
         <br />
         Sign up!
@@ -82,8 +123,15 @@ const RegisterView: React.FC<RegisterProps> = ({
             value={inputData.username}
             onChange={handleInputChange}
             placeholder="example name"
-            className="border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39]"
+            className={`border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39] ${
+              errors.username ? "border-[#991b1b]" : ""
+            }`}
           />
+          {errors.username && (
+            <p className="mt-1 text-sm font-medium text-[#991b1b]">
+              {errors.username}
+            </p>
+          )}
         </div>
         <div>
           <Label
@@ -99,8 +147,15 @@ const RegisterView: React.FC<RegisterProps> = ({
             value={inputData.email}
             type="email"
             placeholder="example@email.com"
-            className="border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39]"
+            className={`border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39] ${
+              errors.email ? "border-[#991b1b]" : ""
+            }`}
           />
+          {errors.email && (
+            <p className="mt-1 text-sm font-medium text-[#991b1b]">
+              {errors.email}
+            </p>
+          )}
         </div>
         <div>
           <Label
@@ -117,16 +172,23 @@ const RegisterView: React.FC<RegisterProps> = ({
               value={inputData.password}
               type={showPassword ? "text" : "password"}
               placeholder="••••••••••••••"
-              className="border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39]"
+              className={`border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39] ${
+                errors.password ? "border-[#991b1b]" : ""
+              }`}
             />
             <Button
               onClick={() => setShowPassword(!showPassword)}
               type="button"
-              variant={"vintage_icon"}
+              variant="vintage_icon"
             >
               {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
             </Button>
           </div>
+          {errors.password && (
+            <p className="mt-1 text-sm font-medium text-[#991b1b]">
+              {errors.password}
+            </p>
+          )}
         </div>
 
         <div>
@@ -143,12 +205,18 @@ const RegisterView: React.FC<RegisterProps> = ({
             value={inputData.confirmPassword}
             type="password"
             placeholder="••••••••••••••"
-            className="border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39]"
+            className={`border-2 border-[#1c3f39] bg-[#f5f1e4] text-[#1c3f39] shadow-[inset_2px_2px_0_0_#1c3f39] transition-all focus:shadow-[inset_-2px_-2px_0_0_#1c3f39] ${
+              errors.confirmPassword ? "border-[#991b1b]" : ""
+            }`}
           />
+          {errors.confirmPassword && (
+            <p className="mt-1 text-sm font-medium text-[#991b1b]">
+              {errors.confirmPassword}
+            </p>
+          )}
         </div>
 
-        {error && <p className="text-center text-red-500">{error}</p>}
-        <Button type="submit" variant={"vintage_primary"} className="w-full">
+        <Button type="submit" variant="vintage_primary" className="w-full">
           Sign up
         </Button>
       </form>
@@ -156,7 +224,7 @@ const RegisterView: React.FC<RegisterProps> = ({
         Have an account?{" "}
         <Button
           onClick={onLoginClick}
-          variant={"vintage_secondary"}
+          variant="vintage_secondary"
           className="underline"
         >
           Login

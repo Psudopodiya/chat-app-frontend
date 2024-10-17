@@ -1,4 +1,3 @@
-export { Alert, AlertDescription, AlertTitle } from "./alert";
 export { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 export { Button } from "./button";
 export {
@@ -43,7 +42,6 @@ export { Input } from "./input";
 
 export { Label } from "./label";
 export { ScrollArea, ScrollBar } from "./scroll-area";
-export { Switch } from "./switch";
 export { Textarea } from "./textarea";
 export {
   Toast,
@@ -83,9 +81,3 @@ export {
 } from "./command";
 
 export { VintageMultiSelect } from "./multiselect";
-export {
-  Popover,
-  PopoverAnchor,
-  PopoverContent,
-  PopoverTrigger,
-} from "./popover";

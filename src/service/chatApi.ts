@@ -19,6 +19,7 @@ export const createWebSocket = (roomID: number, token: string) => {
 
 // Work under Progress
 export const createRoom = async (createRoomInfo: CreateRoom) => {
+  console.log(">>> createRoomInfo", createRoomInfo);
   const accessToken = localStorage.getItem("access_token");
   const response = await axios.post(
     `${BASE_URL}chat/rooms/create/`,

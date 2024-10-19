@@ -1,5 +1,7 @@
-import { Clock, MessageCircle, Send } from "lucide-react";
+import { Clock, MessageCircle, MoreVertical, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+
+import { RoomDetailModal } from "./RoomDetailModal";
 
 import {
   Avatar,
@@ -11,17 +13,18 @@ import {
 } from "@/components/ui";
 import { useAuth } from "@/context/AuthContext";
 import { createWebSocket } from "@/service/chatApi";
-import { Message } from "@/types/types";
+import { Message, Room } from "@/types/types";
 import { formatTime, groupMessagesByDate } from "@/utils/utils";
 
 interface ChatWindowProps {
-  selectedRoom: number;
+  selectedRoom: Room | null;
 }
 
 export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
   const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const wsRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
@@ -29,7 +32,7 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
       const token = localStorage.getItem("access_token");
       if (!token) return;
 
-      wsRef.current = createWebSocket(selectedRoom, token);
+      wsRef.current = createWebSocket(selectedRoom.id, token);
 
       wsRef.current.onopen = () => {
         console.log("WebSocket connection established");
@@ -98,10 +101,17 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
 
   return (
     <div className="flex max-h-full flex-1 flex-col overflow-hidden bg-[#f2e8cf]">
-      <div className="border-b border-[#1c3f39] p-4">
+      <div className="flex items-center justify-between border-b border-[#1c3f39] p-4">
         <h2 className="text-xl font-semibold text-[#1c3f39]">
-          Room: {selectedRoom}
+          Room: {selectedRoom.title}
         </h2>
+        <Button
+          onClick={() => setIsModalOpen(true)}
+          variant="ghost"
+          className="rounded-none p-1 hover:bg-[#e8e0c5]"
+        >
+          <MoreVertical size={24} />
+        </Button>
       </div>
       <ScrollArea className="flex-1 overflow-y-auto p-4">
         <div className="pb-16">
@@ -191,6 +201,12 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
           <Send className="h-5 w-5" />
         </Button>
       </form>
+
+      <RoomDetailModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        roomInfo={selectedRoom}
+      />
     </div>
   );
 }

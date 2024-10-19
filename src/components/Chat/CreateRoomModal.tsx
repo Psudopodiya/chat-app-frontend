@@ -110,8 +110,11 @@ export default function CreateRoomModal({ chatRooms }: CreateRoomModalProps) {
       </Button>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="rounded-none border-4 border-double border-[#1c3f39] bg-[#f5f1e4] shadow-[4px_4px_0_0_#1c3f39]">
-          <DialogHeader className="border-b-4 border-double border-[#1c3f39] p-6">
+        <DialogContent
+          className="rounded-none border-4 border-double border-[#1c3f39] bg-[#f5f1e4] shadow-[4px_4px_0_0_#1c3f39]"
+          aria-describedby="dialog-description"
+        >
+          <DialogHeader className="border-b-4 border-double border-[#1c3f39]">
             <DialogTitle className="flex items-center justify-between text-2xl font-bold uppercase tracking-wider text-[#1c3f39]">
               Create New Room
             </DialogTitle>
@@ -185,13 +188,15 @@ export default function CreateRoomModal({ chatRooms }: CreateRoomModalProps) {
               >
                 Add Participants
               </label>
-              <VintageMultiSelect
-                users={usersList}
-                selectedUsers={roomInfo.participants}
-                onSelectionChange={(selectedUsers) =>
-                  setRoomInfo({ ...roomInfo, participants: selectedUsers })
-                }
-              />
+              <div aria-disabled>
+                <VintageMultiSelect
+                  users={usersList}
+                  selectedUsers={roomInfo.participants}
+                  onSelectionChange={(selectedUsers) =>
+                    setRoomInfo({ ...roomInfo, participants: selectedUsers })
+                  }
+                />
+              </div>
             </div>
             <DialogFooter className="flex justify-end space-x-4">
               <Button

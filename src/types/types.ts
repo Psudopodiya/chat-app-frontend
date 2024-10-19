@@ -5,6 +5,7 @@ export interface Room {
   created_at?: string;
   owner: string;
   participants?: string[];
+  room_type: string;
 }
 
 export interface Message {

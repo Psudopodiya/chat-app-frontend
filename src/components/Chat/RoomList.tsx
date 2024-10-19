@@ -7,8 +7,8 @@ import { useAuth } from "@/context/AuthContext";
 import { Room } from "@/types/types";
 
 interface RoomListProps {
-  selectedRoom: number;
-  setSelectedRoom: (roomId: number) => void;
+  selectedRoom: Room | null;
+  setSelectedRoom: (room: Room) => void;
   chatRooms: Room[];
 }
 
@@ -31,7 +31,7 @@ export default function RoomList({
       <ScrollArea className="flex-grow">
         {chatRooms.map((room) => {
           const canJoinRoom =
-            room.participants?.length === 0 ||
+            room.room_type === "public" ||
             room.participants?.includes(user?.username ?? "") ||
             room.owner === user?.username;
           return (
@@ -39,9 +39,9 @@ export default function RoomList({
               <div
                 key={room.id}
                 className={`group w-full border-b border-[#1c3f39] p-4 text-left transition-colors hover:bg-[#d4c07e] ${
-                  selectedRoom === room.id ? "bg-[#c2b280]" : ""
+                  selectedRoom?.id === room.id ? "bg-[#c2b280]" : ""
                 }`}
-                onClick={() => setSelectedRoom(room.id)}
+                onClick={() => setSelectedRoom(room)}
               >
                 <div className="flex items-center">
                   <MessageSquare

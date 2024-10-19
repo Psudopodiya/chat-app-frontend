@@ -5,7 +5,7 @@ import { getChatRooms } from "@/service/chatApi";
 import { Room } from "@/types/types";
 
 export default function Home() {
-  const [selectedRoom, setSelectedRoom] = useState(0);
+  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
   const [chatRooms, setChatRooms] = useState<Room[]>([]);
   const wsRef = useRef<WebSocket | null>(null);
 

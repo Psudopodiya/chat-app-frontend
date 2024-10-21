@@ -20,7 +20,7 @@ export default function RoomList({
   const { user } = useAuth();
 
   return (
-    <div className="w-full border-r border-[#1c3f39] bg-[#f2e8cf] md:w-1/3">
+    <div className="w-full border-r border-[#1c3f39] bg-[#f2e8cf] md:w-1/3 lg:w-1/4">
       <div className="flex items-center justify-between border-b border-[#1c3f39] p-4">
         <h2 className="flex items-center text-xl font-semibold text-[#1c3f39]">
           <Users size={24} className="mr-2" />
@@ -28,7 +28,7 @@ export default function RoomList({
         </h2>
         <CreateRoom chatRooms={chatRooms} />
       </div>
-      <ScrollArea className="flex-grow">
+      <ScrollArea className="h-[calc(100vh-5rem)]">
         {chatRooms.map((room) => {
           const canJoinRoom =
             room.room_type === "public" ||

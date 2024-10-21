@@ -1,4 +1,4 @@
-import { LogOut, Menu, MessageCircle, User } from "lucide-react";
+import { LogOut, MessageCircle, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -22,13 +22,6 @@ export default function Navbar() {
   return (
     <nav className="flex items-center justify-between bg-[#1c3f39] p-4 text-[#f2e8cf] shadow-md">
       <div className="flex items-center">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="mr-2 text-[#f2e8cf] hover:text-[#d9c8a0] md:hidden"
-        >
-          <Menu className="h-6 w-6" />
-        </Button>
         <MessageCircle className="mr-2 hidden h-6 w-6 md:block" />
         <button className="text-xl font-bold" onClick={() => navigate("/")}>
           Retro Chat

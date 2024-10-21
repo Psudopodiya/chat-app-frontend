@@ -111,21 +111,21 @@ export default function ProfilePage() {
   };
 
   return (
-    <div>
-      <div className="flex min-h-screen items-center justify-center bg-[#f5f1e4] p-8 font-inconsolata">
+    <div className="min-h-screen bg-[#f5f1e4] p-4 font-inconsolata sm:p-8">
+      <div className="flex items-center justify-center">
         <Card className="relative mx-auto w-full max-w-2xl rounded-none border-4 border-double border-[#1c3f39] bg-[#e8e0c5] shadow-[8px_8px_0_0_#1c3f39]">
-          <CardContent className="p-8">
+          <CardContent className="p-4 sm:p-8">
             <Button
               type="button"
               onClick={() => navigate("/")}
               variant={"vintage_icon"}
-              className="absolute"
+              className="absolute left-4 top-2 size-6 sm:left-6"
             >
-              Back to Home
+              Home
             </Button>
-            <div className="mb-8 flex flex-col items-center">
+            <div className="mb-6 flex flex-col items-center sm:mb-8">
               <Avatar
-                className={`mb-6 h-40 w-40 border-4 border-double border-[#1c3f39] shadow-[4px_4px_0_0_#1c3f39] ${
+                className={`mb-4 size-32 border-4 border-double border-[#1c3f39] shadow-[4px_4px_0_0_#1c3f39] sm:mb-6 sm:size-40 ${
                   isEditing ? "cursor-pointer" : ""
                 }`}
                 onClick={handleImageClick}
@@ -138,7 +138,7 @@ export default function ProfilePage() {
                   alt="Profile picture"
                   className="object-cover"
                 />
-                <AvatarFallback className="bg-[#d4c9a8] text-4xl text-[#1c3f39]">
+                <AvatarFallback className="bg-[#d4c9a8] text-3xl text-[#1c3f39] sm:text-4xl">
                   {user?.username.slice(0, 2).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
@@ -164,10 +164,10 @@ export default function ProfilePage() {
             </div>
 
             <form
-              className="flex flex-col justify-center gap-8"
+              className="flex flex-col justify-center gap-6 sm:gap-8"
               onSubmit={handleSubmit}
             >
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid gap-6 sm:grid-cols-2">
                 <div>
                   <Label
                     htmlFor="username"
@@ -221,9 +221,9 @@ export default function ProfilePage() {
                 />
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
                 <Button
-                  className="rounded-none border-2 border-[#1c3f39] bg-[#1c3f39] font-bold uppercase tracking-wider text-[#f5f1e4] shadow-[4px_4px_0_0_#0a1f1c] transition-all hover:bg-[#2c4f49] hover:shadow-none"
+                  className="w-full rounded-none border-2 border-[#1c3f39] bg-[#1c3f39] font-bold uppercase tracking-wider text-[#f5f1e4] shadow-[4px_4px_0_0_#0a1f1c] transition-all hover:bg-[#2c4f49] hover:shadow-none sm:w-auto"
                   type="submit"
                   disabled={isLoading}
                 >
@@ -242,7 +242,7 @@ export default function ProfilePage() {
 
                 <Button
                   variant="outline"
-                  className="rounded-none border-2 border-[#8b0000] bg-[#f5f1e4] font-bold uppercase tracking-wider text-[#8b0000] shadow-[4px_4px_0_0_#8b0000] transition-all hover:bg-[#e8d8b0] hover:text-[#a50000] hover:shadow-none"
+                  className="w-full rounded-none border-2 border-[#8b0000] bg-[#f5f1e4] font-bold uppercase tracking-wider text-[#8b0000] shadow-[4px_4px_0_0_#8b0000] transition-all hover:bg-[#e8d8b0] hover:text-[#a50000] hover:shadow-none sm:w-auto"
                   onClick={handleDeleteAccount}
                   type="button"
                 >

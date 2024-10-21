@@ -7,13 +7,14 @@ import { Room } from "@/types/types";
 export default function Home() {
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
   const [chatRooms, setChatRooms] = useState<Room[]>([]);
+  const [isMobileView, setIsMobileView] = useState(false);
   const wsRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
     const fetchChatRooms = async () => {
       try {
         const rooms = await getChatRooms();
-        console.log("Initial Chat romms", rooms);
+        console.log("Initial Chat rooms", rooms);
         setChatRooms(rooms);
       } catch (error) {
         console.error("Failed to fetch chat rooms:", error);
@@ -21,6 +22,15 @@ export default function Home() {
     };
 
     fetchChatRooms();
+
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -82,12 +92,20 @@ export default function Home() {
 
   return (
     <div className="flex h-full overflow-hidden bg-[#f2e8cf]">
-      <RoomList
-        selectedRoom={selectedRoom}
-        setSelectedRoom={setSelectedRoom}
-        chatRooms={chatRooms}
-      />
-      <ChatWindow selectedRoom={selectedRoom} />
+      {(!isMobileView || !selectedRoom) && (
+        <RoomList
+          selectedRoom={selectedRoom}
+          setSelectedRoom={setSelectedRoom}
+          chatRooms={chatRooms}
+        />
+      )}
+      {(!isMobileView || selectedRoom) && (
+        <ChatWindow
+          selectedRoom={selectedRoom}
+          onBack={() => setSelectedRoom(null)}
+          isMobileView={isMobileView}
+        />
+      )}
     </div>
   );
 }

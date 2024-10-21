@@ -1,4 +1,10 @@
-import { Clock, MessageCircle, MoreVertical, Send } from "lucide-react";
+import {
+  ArrowLeft,
+  Clock,
+  MessageCircle,
+  MoreVertical,
+  Send,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { RoomDetailModal } from "./RoomDetailModal";
@@ -18,14 +24,21 @@ import { formatTime, groupMessagesByDate } from "@/utils/utils";
 
 interface ChatWindowProps {
   selectedRoom: Room | null;
+  onBack: () => void;
+  isMobileView: boolean;
 }
 
-export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
+export default function Component({
+  selectedRoom,
+  onBack,
+  isMobileView,
+}: ChatWindowProps) {
   const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const wsRef = useRef<WebSocket | null>(null);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (selectedRoom && user) {
@@ -72,6 +85,17 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
     }
   }, [selectedRoom, user]);
 
+  useEffect(() => {
+    if (scrollAreaRef.current) {
+      const scrollContainer = scrollAreaRef.current.querySelector(
+        "[data-radix-scroll-area-viewport]",
+      );
+      if (scrollContainer) {
+        scrollContainer.scrollTop = scrollContainer.scrollHeight;
+      }
+    }
+  }, [messages]);
+
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
@@ -102,6 +126,11 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
   return (
     <div className="flex max-h-full flex-1 flex-col overflow-hidden bg-[#f2e8cf]">
       <div className="flex items-center justify-between border-b border-[#1c3f39] p-4">
+        {isMobileView && (
+          <Button onClick={onBack} variant="ghost" className="mr-2 p-1">
+            <ArrowLeft size={24} />
+          </Button>
+        )}
         <h2 className="text-xl font-semibold text-[#1c3f39]">
           Room: {selectedRoom.title}
         </h2>
@@ -113,8 +142,8 @@ export default function ChatWindow({ selectedRoom }: ChatWindowProps) {
           <MoreVertical size={24} />
         </Button>
       </div>
-      <ScrollArea className="flex-1 overflow-y-auto p-4">
-        <div className="pb-16">
+      <ScrollArea className="flex-1 overflow-y-auto p-4" ref={scrollAreaRef}>
+        <div className="pb-4">
           {Object.entries(groupedMessages).map(([date, dateMessages]) => (
             <div key={date}>
               <div className="my-4 flex justify-center">
